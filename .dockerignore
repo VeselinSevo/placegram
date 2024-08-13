@@ -20,14 +20,12 @@ Dockerfile
 docker-compose.yml
 
 # Configuration files (optional, based on your needs)
-vite.config.js
 .eslintrc.js
 .prettierrc
 .editorconfig
 
 # Miscellaneous
 npm-debug.log
-yarn-error.log
 
 # ESLint configuration files (if not needed in the container)
 .eslintrc.js

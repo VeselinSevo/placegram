@@ -58,16 +58,3 @@ Desktop.ini
 
 # Optional: If you use a package-lock file or yarn.lock
 package-lock.json
-yarn.lock
-
-# Optional: If you use Docker, ignore Docker-related files
-docker-compose.override.yml
-Dockerfile
-Dockerfile.dev
-
-# Optional: If you use TypeScript and want to ignore compiled files
-*.tsbuildinfo
-
-# ESLint configuration files (if not needed in the container)
-.eslintrc.js
-.eslintignore
