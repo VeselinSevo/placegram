@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  places-tracker-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    restart: always
+    networks:
+      - places-tracker-frontend
+
+networks:
+  places-tracker-frontend:
+    driver: bridge

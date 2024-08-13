@@ -1,0 +1,30 @@
+# Node modules directory
+node_modules
+
+# Build output
+dist
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Git-related files
+.git
+.gitignore
+
+# Docker-related files (optional)
+Dockerfile
+docker-compose.yml
+
+# Configuration files (optional, based on your needs)
+vite.config.js
+.eslintrc.js
+.prettierrc
+.editorconfig
+
+# Miscellaneous
+npm-debug.log
+yarn-error.log
