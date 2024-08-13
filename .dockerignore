@@ -28,3 +28,7 @@ vite.config.js
 # Miscellaneous
 npm-debug.log
 yarn-error.log
+
+# ESLint configuration files (if not needed in the container)
+.eslintrc.js
+.eslintignore

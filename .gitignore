@@ -67,3 +67,7 @@ Dockerfile.dev
 
 # Optional: If you use TypeScript and want to ignore compiled files
 *.tsbuildinfo
+
+# ESLint configuration files (if not needed in the container)
+.eslintrc.js
+.eslintignore
