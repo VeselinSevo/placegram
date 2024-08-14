@@ -9,8 +9,8 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-bgDark">
-            <div className="max-w-screen-2xl flex flex-wrap items-center align-middle justify-between mx-auto p-4">
+        <nav className="bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-bgDark sticky top-0 z-50">
+            <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <a
                     href="/"
                     className="flex items-center space-x-3 rtl:space-x-reverse"

@@ -3,6 +3,7 @@ import Places from "./user/pages/Places";
 import NewPlace from "./places/pages/NewPlace";
 import "./App.css";
 import Navbar from "./shared/components/Navbar";
+import Footer from "./shared/components/Footer";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                     <Route path="*" element={<Places />} />
                 </Routes>
             </Router>
+            <Footer></Footer>
         </>
     );
 }

@@ -21,6 +21,7 @@ export default function MapComponent({ location }) {
             center={[location.latitude, location.longitude]}
             zoom={7}
             style={{ height: "220px", width: "100%" }}
+            className="rounded-b-lg md:rounded-bl-lg md:rounded-tl-lg md:rounded-none md:rounded-l-lg overflow-hidden z-10"
         >
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
