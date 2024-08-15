@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import "./App.css";
 import Places from "./user/pages/Places";
 import NewPlace from "./places/pages/NewPlace";
-import "./App.css";
-import Navbar from "./shared/components/Navbar";
-import Footer from "./shared/components/Footer";
+import Navbar from "./shared/components/Navigation/Navbar";
+import Footer from "./shared/components/Footer/Footer";
 
 function App() {
     return (

@@ -24,7 +24,7 @@ export default function ModeSwitcher() {
                 type="button"
                 className={`${
                     mode === "dark" ? "hidden" : "block"
-                } font-medium text-gray-800 rounded-full !p-2 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:bg-gray-200`}
+                } mt-2 md:mt-0 font-medium text-gray-800 rounded-full !p-2 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:bg-gray-200`}
                 onClick={toggleMode}
             >
                 <span className="group inline-flex shrink-0 justify-center items-center size-9 text-gray-900">

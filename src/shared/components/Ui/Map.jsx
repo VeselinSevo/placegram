@@ -1,4 +1,3 @@
-import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -15,12 +14,12 @@ L.Icon.Default.mergeOptions({
         "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
 
-export default function MapComponent({ location }) {
+export default function MapComponent({ location, height }) {
     return (
         <MapContainer
             center={[location.latitude, location.longitude]}
             zoom={7}
-            style={{ height: "220px", width: "100%" }}
+            style={{ height: height, width: "100%" }}
             className="rounded-b-lg md:rounded-bl-lg md:rounded-tl-lg md:rounded-none md:rounded-l-lg overflow-hidden z-10"
         >
             <TileLayer
