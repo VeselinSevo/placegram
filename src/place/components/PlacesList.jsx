@@ -1,4 +1,5 @@
 import PlaceItem from "./PlaceItem";
+import Card from "../../shared/components/Ui/Card";
 
 export default function PlacesList() {
     const PLACES = [
@@ -106,7 +107,15 @@ export default function PlacesList() {
                     <PlaceItem place={place} key={place.id} />
                 ))
             ) : (
-                <h2>Places not found</h2>
+                <Card>
+                    <div className="flex flex-col items-center justify-center p-3">
+                        <h3>
+                            There are no places shared with you. Let's add some
+                            friends!
+                        </h3>
+                        <button>Add friend</button>
+                    </div>
+                </Card>
             )}
         </div>
     );

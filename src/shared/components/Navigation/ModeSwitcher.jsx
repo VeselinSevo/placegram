@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 
-export default function ModeSwitcher() {
+export default function ModeSwitcher(props) {
     const [mode, setMode] = useState(() => {
         return localStorage.getItem("mode") || "light";
     });
@@ -24,7 +25,9 @@ export default function ModeSwitcher() {
                 type="button"
                 className={`${
                     mode === "dark" ? "hidden" : "block"
-                } mt-2 md:mt-0 font-medium text-gray-800 rounded-full !p-2 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:bg-gray-200`}
+                } mt-2 md:mt-0 font-medium text-gray-800 rounded-full !p-2 ${
+                    props.isSideDrawer && "bg-gray-100"
+                } bg-gray-100 hover:bg-gray-200 focus:outline-none focus:bg-gray-200`}
                 onClick={toggleMode}
             >
                 <span className="group inline-flex shrink-0 justify-center items-center size-9 text-gray-900">
@@ -48,7 +51,9 @@ export default function ModeSwitcher() {
                 type="button"
                 className={`${
                     mode === "dark" ? "block" : "hidden"
-                } font-medium text-gray-800 rounded-full !p-2 bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700`}
+                } mt-2 md:mt-0 font-medium text-gray-800 rounded-full !p-2 ${
+                    props.isSideDrawer && "bg-gray-800"
+                } hover:bg-gray-700 focus:outline-none focus:bg-gray-700`}
                 onClick={toggleMode}
             >
                 <span className="group inline-flex shrink-0 justify-center items-center size-9 dark:text-white">

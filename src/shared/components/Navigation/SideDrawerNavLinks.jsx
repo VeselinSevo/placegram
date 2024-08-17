@@ -1,9 +1,11 @@
+/* eslint-disable react/prop-types */
+
 import ModeSwitcher from "./ModeSwitcher";
 
-export default function NavLinks() {
+export default function NavLinks(props) {
     return (
         <ul className="font-medium gap-y-3 items-start flex flex-col p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
-            <li>
+            <li onClick={props.toggleMenu}>
                 <a
                     href="#"
                     className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white hover:text-primary dark:hover:bg-gray-700 dark:hover:text-primary md:dark:hover:bg-transparent"
@@ -12,7 +14,7 @@ export default function NavLinks() {
                     Home
                 </a>
             </li>
-            <li>
+            <li onClick={props.toggleMenu}>
                 <a
                     href="#"
                     className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white hover:text-primary dark:hover:bg-gray-700 dark:hover:text-primary md:dark:hover:bg-transparent"
@@ -20,7 +22,7 @@ export default function NavLinks() {
                     About
                 </a>
             </li>
-            <li>
+            <li onClick={props.toggleMenu}>
                 <a
                     href="#"
                     className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white hover:text-primary dark:hover:bg-gray-700 dark:hover:text-primary md:dark:hover:bg-transparent"
@@ -28,7 +30,7 @@ export default function NavLinks() {
                     Services
                 </a>
             </li>
-            <li>
+            <li onClick={props.toggleMenu}>
                 <a
                     href="#"
                     className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white hover:text-primary dark:hover:bg-gray-700 dark:hover:text-primary md:dark:hover:bg-transparent"
@@ -36,7 +38,7 @@ export default function NavLinks() {
                     Pricing
                 </a>
             </li>
-            <li>
+            <li onClick={props.toggleMenu}>
                 <a
                     href="#"
                     className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 hover:text-primary md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-primary md:dark:hover:bg-transparent"
@@ -45,7 +47,7 @@ export default function NavLinks() {
                 </a>
             </li>
             <li>
-                <ModeSwitcher></ModeSwitcher>
+                <ModeSwitcher isSideDrawer={true}></ModeSwitcher>
             </li>
         </ul>
     );

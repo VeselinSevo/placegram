@@ -45,7 +45,7 @@ export default function NavLinks() {
                 </a>
             </li>
             <li>
-                <ModeSwitcher></ModeSwitcher>
+                <ModeSwitcher isSideDrawer={false}></ModeSwitcher>
             </li>
         </ul>
     );

@@ -1,58 +1,64 @@
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, forwardRef } from "react";
 import Burger from "./Burger";
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
 import SideDrawer from "./SideDrawer";
 import Backdrop from "../Ui/Backdrop";
 
-export default function Navbar() {
+const Navbar = forwardRef((props, ref) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
 
+    const handleScroll = () => {
+        setScrolled(window.scrollY > 50);
+    };
+
     useEffect(() => {
         if (isOpen) {
-            // Disable scrolling by adding a class to the body
             document.body.classList.add("overflow-hidden");
         } else {
-            // Re-enable scrolling by removing the class from the body
             document.body.classList.remove("overflow-hidden");
         }
 
+        // Add scroll event listener
+        window.addEventListener("scroll", handleScroll);
+
+        // Clean up scroll event listener
         return () => {
-            // Clean up by removing the class when the component unmounts
+            window.removeEventListener("scroll", handleScroll);
             document.body.classList.remove("overflow-hidden");
         };
     }, [isOpen]);
 
     return (
         <>
-            {isOpen && <SideDrawer></SideDrawer>}
-            {isOpen && <Backdrop onClick={toggleMenu}></Backdrop>}
-            <nav className="bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-bgDark sticky top-0 z-40">
+            <SideDrawer toggleMenu={toggleMenu} show={isOpen} />
+            {isOpen && <Backdrop onClick={toggleMenu} />}
+            <nav
+                ref={ref}
+                className={`transition-all duration-300 ease-in-out border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40 
+                    ${
+                        scrolled
+                            ? "!bg-opacity-90 backdrop-blur-lg bg-gray-100 dark:bg-gray-900"
+                            : "!bg-opacity-50 backdrop-blur-lg  bg-gray-100 dark:bg-gray-900"
+                    }
+                    ${!scrolled && "!bg-transparent"}
+                   `}
+            >
                 <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
-                    <Logo></Logo>
+                    <Logo />
                     {!isOpen && (
-                        <Burger
-                            toggleMenu={toggleMenu}
-                            isOpen={isOpen}
-                        ></Burger>
+                        <Burger toggleMenu={toggleMenu} isOpen={isOpen} />
                     )}
-                    {/* <div
-                    className={`${
-                        isOpen ? "block" : "hidden"
-                    } w-full md:block md:w-auto`}
-                    id="navbar-default"
-                >
-               
-                </div> */}
-
-                    <NavLinks></NavLinks>
+                    <NavLinks />
                 </div>
             </nav>
         </>
     );
-}
+});
+
+export default Navbar;
