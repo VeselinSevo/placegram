@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Places from "./place/pages/Places";
 import NewPlace from "./place/pages/NewPlace";
+import User from "./user/pages/User";
 import Navbar from "./shared/components/Navigation/Navbar";
 import Footer from "./shared/components/Footer/Footer";
 import useDynamicHeight from "./hooks/useDynamicHeight"; // Import the custom hook
@@ -49,10 +50,14 @@ function App() {
             {/* Navbar */}
             <Navbar ref={navbarRef} />
             {/* Main Content with dynamic height */}
-            <main className="relative z-10" style={{ minHeight: height }}>
+            <main
+                className="relative z-10 my-4 md:my-10"
+                style={{ minHeight: height }}
+            >
                 <Router>
                     <Routes>
                         <Route path="/" element={<Places />} />
+                        <Route path="/user" element={<User />} />
                         <Route path="/places/new" element={<NewPlace />} />
                         <Route path="*" element={<Places />} />
                     </Routes>

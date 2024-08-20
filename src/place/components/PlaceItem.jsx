@@ -14,9 +14,9 @@ export default function PlaceItem({ place }) {
         : `${postDate.toLocaleDateString()}`;
 
     return (
-        <Card>
+        <Card className="rounded-lg">
             <img
-                className="mb-2 object-cover w-full rounded-t-lg md:h-auto md:rounded-none md:rounded-s-lg"
+                className="mb-2 object-cover w-full rounded-t-lg md:h-auto md:rounded-lg"
                 src={place.image}
                 alt={place.title}
             />

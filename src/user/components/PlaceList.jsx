@@ -2,7 +2,7 @@ import PlaceItem from "./PlaceItem";
 import Card from "../../shared/components/Ui/Card";
 
 export default function PlacesList() {
-    const PLACES = [
+    const USER_PLACES = [
         {
             id: "1234567890",
             user: {
@@ -101,19 +101,16 @@ export default function PlacesList() {
     ];
 
     return (
-        <div className="container m-auto flex flex-col justify-center place-items-center gap-8 md:gap-8 px-10 my-4 md:my-10">
-            {PLACES.length > 0 ? (
-                PLACES.map((place) => (
+        <div className="w-full md:max-w-4xl grid grid-cols-3 gap-1 justify-center place-items-center md:gap-2 my-4 md:my-10 m-auto">
+            {USER_PLACES.length > 0 ? (
+                USER_PLACES.map((place) => (
                     <PlaceItem place={place} key={place.id} />
                 ))
             ) : (
-                <Card>
+                <Card className="h-full flex flex-col">
                     <div className="flex flex-col items-center justify-center p-3">
-                        <h3>
-                            There are no places shared with you. Let's add some
-                            friends!
-                        </h3>
-                        <button>Add friend</button>
+                        <h3>You have no places shared. Share one</h3>
+                        <button>Add place</button>
                     </div>
                 </Card>
             )}
