@@ -1,7 +1,10 @@
-import PlaceItem from "./PlaceItem";
-import Card from "../../shared/components/Ui/Card";
+import PlacesListView from "./PlacesListView";
+import PlacesMapView from "./PlacesMapView";
 
-export default function PlacesList() {
+import { useState } from "react";
+
+export default function PlaceDisplay() {
+    const [view, setView] = useState("grid"); // "grid" or "map"
     const USER_PLACES = [
         {
             id: "1234567890",
@@ -99,21 +102,35 @@ export default function PlacesList() {
             postDate: "2024-04-11T10:00:00Z",
         },
     ];
-
     return (
-        <div className="w-full md:max-w-4xl grid grid-cols-3 gap-1 justify-center place-items-center md:gap-2 my-4 md:my-10 m-auto">
-            {USER_PLACES.length > 0 ? (
-                USER_PLACES.map((place) => (
-                    <PlaceItem place={place} key={place.id} />
-                ))
-            ) : (
-                <Card className="h-full flex flex-col">
-                    <div className="flex flex-col items-center justify-center p-3">
-                        <h3>You have no places shared. Share one</h3>
-                        <button>Add place</button>
-                    </div>
-                </Card>
-            )}
+        <div className="w-full m-auto md:mt-4 mt-3">
+            <div className="flex justify-center gap-x-3 p-2">
+                <div
+                    className={`cursor-pointer hover:text-hover-dark dark:hover:text-hover ${
+                        view === "grid" ? "text-primary" : ""
+                    }`}
+                    onClick={() => setView("grid")}
+                >
+                    Grid
+                </div>
+                <div
+                    className={`cursor-pointer hover:text-hover-dark dark:hover:text-hover ${
+                        view === "map" ? "text-primary" : ""
+                    }`}
+                    onClick={() => setView("map")}
+                >
+                    Map
+                </div>
+            </div>
+            <hr className="md:max-w-4xl m-auto"></hr>
+
+            <div className="w-full m-auto my-4 md:my-5 md:max-w-4xl">
+                {view === "grid" ? (
+                    <PlacesListView places={USER_PLACES} />
+                ) : (
+                    <PlacesMapView places={USER_PLACES} /> // Implement this component to show places on a map
+                )}
+            </div>
         </div>
     );
 }

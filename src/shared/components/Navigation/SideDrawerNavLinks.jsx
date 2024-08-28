@@ -8,7 +8,7 @@ export default function NavLinks(props) {
             <li onClick={props.toggleMenu}>
                 <a
                     href="#"
-                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white hover:text-primary dark:hover:bg-gray-700 dark:hover:text-primary md:dark:hover:bg-transparent"
+                    className="block py-2 px-3 text-text rounded hover:bg-hover md:hover:bg-transparent md:border-0 md:p-0 dark:text-text-dark hover:text-primary dark:hover:bg-hover-dark dark:hover:text-primary md:dark:hover:bg-transparent"
                     aria-current="page"
                 >
                     Home
@@ -17,7 +17,7 @@ export default function NavLinks(props) {
             <li onClick={props.toggleMenu}>
                 <a
                     href="#"
-                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white hover:text-primary dark:hover:bg-gray-700 dark:hover:text-primary md:dark:hover:bg-transparent"
+                    className="block py-2 px-3 text-text rounded hover:bg-hover md:hover:bg-transparent md:border-0 md:p-0 dark:text-text-dark hover:text-primary dark:hover:bg-hover-dark dark:hover:text-primary md:dark:hover:bg-transparent"
                 >
                     About
                 </a>
@@ -25,7 +25,7 @@ export default function NavLinks(props) {
             <li onClick={props.toggleMenu}>
                 <a
                     href="#"
-                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white hover:text-primary dark:hover:bg-gray-700 dark:hover:text-primary md:dark:hover:bg-transparent"
+                    className="block py-2 px-3 text-text rounded hover:bg-hover md:hover:bg-transparent md:border-0 md:p-0 dark:text-text-dark hover:text-primary dark:hover:bg-hover-dark dark:hover:text-primary md:dark:hover:bg-transparent"
                 >
                     Services
                 </a>
@@ -33,7 +33,7 @@ export default function NavLinks(props) {
             <li onClick={props.toggleMenu}>
                 <a
                     href="#"
-                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0  md:p-0 dark:text-white hover:text-primary dark:hover:bg-gray-700 dark:hover:text-primary md:dark:hover:bg-transparent"
+                    className="block py-2 px-3 text-text rounded hover:bg-hover md:hover:bg-transparent md:border-0 md:p-0 dark:text-text-dark hover:text-primary dark:hover:bg-hover-dark dark:hover:text-primary md:dark:hover:bg-transparent"
                 >
                     Pricing
                 </a>
@@ -41,13 +41,13 @@ export default function NavLinks(props) {
             <li onClick={props.toggleMenu}>
                 <a
                     href="#"
-                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 hover:text-primary md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-primary md:dark:hover:bg-transparent"
+                    className="block py-2 px-3 text-text rounded hover:bg-hover md:hover:bg-transparent md:border-0 hover:text-primary md:p-0 dark:text-text-dark dark:hover:bg-hover-dark dark:hover:text-primary md:dark:hover:bg-transparent"
                 >
                     Contact
                 </a>
             </li>
             <li>
-                <ModeSwitcher isSideDrawer={true}></ModeSwitcher>
+                <ModeSwitcher isSideDrawer={true} />
             </li>
         </ul>
     );

@@ -20,11 +20,12 @@ export default function PlaceItem({ place }) {
                 style={{ height: "200px" }} // Fixed height for the image
             />
             <div className="md:flex flex-col !rounded-none !md:rounded-lg flex-grow p-4 w-full justify-between hidden">
-                <h5 className="mb-1 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <h5 className="mb-1 text-xl font-bold tracking-tight text-text dark:text-text-dark">
                     {place.title}
                 </h5>
-                <p className="text-gray-500 dark:text-gray-400 text-sm flex items-center">
-                    {displayDate} - {place.country}
+                <p className="mb-2 text-text dark:text-text-dark text-sm flex items-center">
+                    {place.country}
+
                     <img
                         className="ml-2 h-4 w-6"
                         src={`https://flagcdn.com/${place.country
@@ -32,6 +33,9 @@ export default function PlaceItem({ place }) {
                             .substring(0, 2)}.svg`}
                         alt={`${place.country} flag`}
                     />
+                </p>
+                <p className="text-text dark:text-text-dark text-sm flex items-center">
+                    Posted: {displayDate}
                 </p>
             </div>
         </Card>

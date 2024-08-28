@@ -43,10 +43,10 @@ const Navbar = forwardRef((props, ref) => {
                 className={`transition-all duration-300 ease-in-out border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40 
                     ${
                         scrolled
-                            ? "!bg-opacity-90 backdrop-blur-lg bg-gray-100 dark:bg-gray-900"
-                            : "!bg-opacity-50 backdrop-blur-lg  bg-gray-100 dark:bg-gray-900"
+                            ? "bg-opacity-100 backdrop-blur-lg bg-bg dark:bg-bg-dark"
+                            : "bg-opacity-50 backdrop-blur-lg bg-bg dark:bg-bg-dark"
                     }
-                    ${!scrolled && "!bg-transparent"}
+                    ${!scrolled && "bg-transparent"}
                    `}
             >
                 <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -54,7 +54,7 @@ const Navbar = forwardRef((props, ref) => {
                     {!isOpen && (
                         <Burger toggleMenu={toggleMenu} isOpen={isOpen} />
                     )}
-                    <NavLinks />
+                    <NavLinks toggleMenu={toggleMenu} />
                 </div>
             </nav>
         </>

@@ -16,7 +16,7 @@ export default function PlaceItem({ place }) {
     return (
         <Card className="rounded-lg">
             <img
-                className="mb-2 object-cover w-full rounded-t-lg md:h-auto md:rounded-lg"
+                className="mb-2 object-cover w-full rounded-t-lg md:h-auto md:rounded-l-lg"
                 src={place.image}
                 alt={place.title}
             />
@@ -26,21 +26,21 @@ export default function PlaceItem({ place }) {
                         <Avatar
                             src={place?.user?.profilePicture}
                             alt={place?.user?.username || "Default User"}
-                        ></Avatar>
+                        />
 
                         <div>
-                            <p className="text-gray-900 dark:text-white font-bold">
+                            <p className="text-text dark:text-text-dark font-bold">
                                 {place.user.username}
                             </p>
-                            <p className="text-gray-500 dark:text-gray-400 text-sm">
+                            <p className="text-text dark:text-text-dark text-sm">
                                 Posted: {displayDate}
                             </p>
                         </div>
                     </div>
-                    <h5 className="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    <h5 className="mb-1 text-2xl font-bold tracking-tight text-text dark:text-text-dark">
                         {place.title}
                     </h5>
-                    <p className="mb-3 text-gray-500 dark:text-gray-400 text-sm flex items-center">
+                    <p className="mb-3 text-text dark:text-text-dark text-sm flex items-center">
                         {new Date(place.visitDate).toLocaleDateString()} -{" "}
                         {place.country}{" "}
                         <img
@@ -51,7 +51,7 @@ export default function PlaceItem({ place }) {
                             alt={`${place.country} flag`}
                         />
                     </p>
-                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                    <p className="mb-3 font-normal text-text dark:text-text-dark">
                         {place.description}
                     </p>
                 </div>

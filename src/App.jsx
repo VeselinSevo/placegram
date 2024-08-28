@@ -33,7 +33,7 @@ function App() {
     }, []);
 
     return (
-        <div className="relative min-h-screen bg-gray-100 dark:bg-bgDark">
+        <div className="relative min-h-screen bg-bg dark:bg-bg-dark text-text dark:text-text-dark">
             {/* Glowing Effect in Light Mode */}
             <div
                 className="absolute transform

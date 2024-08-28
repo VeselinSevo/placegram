@@ -1,12 +1,24 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    darkMode: "class",
+    darkMode: "class", // Enables dark mode via the "class" strategy
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
         extend: {
             colors: {
-                primary: "rgb(56 189 248 / var(--tw-text-opacity))",
-                bgDark: "rgb(15 23 42)",
+                // Primary color
+                primary: "rgb(56 189 248)",
+
+                // Text colors
+                text: "rgb(17 24 39)", // gray-900
+                "text-dark": "rgb(243 244 246)", // gray-100
+
+                // Background colors
+                bg: "rgb(255 255 255)", // white
+                "bg-dark": "rgb(15 23 42)", // rgb(15, 23, 42)
+
+                // Hover colors
+                hover: "rgb(243 244 246)", // gray-100
+                "hover-dark": "rgb(55 65 81)", // gray-700
             },
             keyframes: {
                 slideIn: {

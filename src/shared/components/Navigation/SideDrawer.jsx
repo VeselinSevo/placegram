@@ -16,10 +16,10 @@ export default function SideDrawer(props) {
             mountOnEnter
             unmountOnExit
         >
-            <aside className="fixed top-0 left-0 block pt-10 pl-5 md:hidden z-[100] w-2/3 h-screen bg-white border-b border-gray-200 dark:border-gray-700 dark:bg-bgDark">
+            <aside className="fixed top-0 left-0 block pt-10 pl-5 md:hidden z-[100] w-2/3 h-screen bg-bg dark:bg-bg-dark border-b border-border-dark dark:border-border-dark">
                 <div
                     onClick={props.toggleMenu}
-                    className="w-8 h-8 fill-current text-gray-800 dark:text-gray-200 dark:hover:text-primary hover:text-primary cursor-pointer ml-auto mr-5"
+                    className="w-8 h-8 fill-current text-text dark:text-text-dark dark:hover:text-primary hover:text-primary cursor-pointer ml-auto mr-5"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

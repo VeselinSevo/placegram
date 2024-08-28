@@ -1,11 +1,10 @@
 import { createPortal } from "react-dom";
-
 export default function Backdrop(props) {
-    const content = (
+    return createPortal(
         <div
-            className="absolute z-50 bg-gray-900 opacity-50 w-full h-screen"
+            className="fixed inset-0 bg-black opacity-50 z-[60]"
             onClick={props.onClick}
-        ></div>
+        ></div>,
+        document.getElementById("backdrop")
     );
-    return createPortal(content, document.getElementById("backdrop"));
 }

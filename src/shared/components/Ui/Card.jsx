@@ -1,10 +1,16 @@
 /* eslint-disable react/prop-types */
-export default function Card(props) {
+export default function Card({ customClasses, disableHover, children }) {
     return (
         <div
-            className={`bg-white md:border text-gray-900 dark:text-gray-100 md:border-gray-200 shadow w-full md:max-w-3xl md:hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 md:dark:hover:bg-gray-700 overflow-hidden ${props?.customClasses}`}
+            className={`bg-white md:border text-text dark:text-text-dark md:border-hover shadow w-full md:max-w-3xl dark:bg-bg-dark dark:border-hover-dark overflow-hidden 
+            ${
+                !disableHover
+                    ? "md:hover:bg-hover md:dark:hover:bg-hover-dark"
+                    : ""
+            }
+            ${customClasses}`}
         >
-            {props.children}
+            {children}
         </div>
     );
 }
