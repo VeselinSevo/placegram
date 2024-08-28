@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 
-export default function ModeSwitcher() {
+export default function ModeSwitcher(props) {
     const [mode, setMode] = useState(() => {
         return localStorage.getItem("mode") || "light";
     });
@@ -24,10 +25,12 @@ export default function ModeSwitcher() {
                 type="button"
                 className={`${
                     mode === "dark" ? "hidden" : "block"
-                } font-medium text-gray-800 rounded-full !p-2 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:bg-gray-200`}
+                } mt-2 md:mt-0 font-medium text-text rounded-full !p-2 ${
+                    props.isSideDrawer && "bg-hover"
+                } bg-hover hover:bg-hover focus:outline-none focus:bg-hover`}
                 onClick={toggleMode}
             >
-                <span className="group inline-flex shrink-0 justify-center items-center size-9 text-gray-900">
+                <span className="group inline-flex shrink-0 justify-center items-center size-9 text-text">
                     <svg
                         className="shrink-0 size-4"
                         xmlns="http://www.w3.org/2000/svg"
@@ -48,10 +51,12 @@ export default function ModeSwitcher() {
                 type="button"
                 className={`${
                     mode === "dark" ? "block" : "hidden"
-                } font-medium text-gray-800 rounded-full !p-2 bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700`}
+                } mt-2 md:mt-0 font-medium text-text-dark rounded-full !p-2 ${
+                    props.isSideDrawer && "bg-hover-dark"
+                } bg-hover-dark hover:bg-hover-dark focus:outline-none focus:bg-hover-dark`}
                 onClick={toggleMode}
             >
-                <span className="group inline-flex shrink-0 justify-center items-center size-9 dark:text-white">
+                <span className="group inline-flex shrink-0 justify-center items-center size-9 dark:text-text-dark">
                     <svg
                         className="shrink-0 size-4"
                         xmlns="http://www.w3.org/2000/svg"

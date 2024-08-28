@@ -1,7 +1,11 @@
-import PlaceItem from "./PlaceItem";
+import PlacesListView from "./PlacesListView";
+import PlacesMapView from "./PlacesMapView";
 
-export default function PlacesList() {
-    const PLACES = [
+import { useState } from "react";
+
+export default function PlaceDisplay() {
+    const [view, setView] = useState("grid"); // "grid" or "map"
+    const USER_PLACES = [
         {
             id: "1234567890",
             user: {
@@ -98,16 +102,35 @@ export default function PlacesList() {
             postDate: "2024-04-11T10:00:00Z",
         },
     ];
-
     return (
-        <div className="container m-auto flex flex-col justify-center place-items-center gap-8 md:gap-8 my-4 px-10 md:my-10">
-            {PLACES.length > 0 ? (
-                PLACES.map((place) => (
-                    <PlaceItem place={place} key={place.id} />
-                ))
-            ) : (
-                <h2>Places not found</h2>
-            )}
+        <div className="w-full m-auto md:mt-4 mt-3">
+            <div className="flex justify-center gap-x-3 p-2">
+                <div
+                    className={`cursor-pointer hover:text-hover-dark dark:hover:text-hover ${
+                        view === "grid" ? "text-primary" : ""
+                    }`}
+                    onClick={() => setView("grid")}
+                >
+                    Grid
+                </div>
+                <div
+                    className={`cursor-pointer hover:text-hover-dark dark:hover:text-hover ${
+                        view === "map" ? "text-primary" : ""
+                    }`}
+                    onClick={() => setView("map")}
+                >
+                    Map
+                </div>
+            </div>
+            <hr className="md:max-w-4xl m-auto"></hr>
+
+            <div className="w-full m-auto my-4 md:my-5 md:max-w-4xl">
+                {view === "grid" ? (
+                    <PlacesListView places={USER_PLACES} />
+                ) : (
+                    <PlacesMapView places={USER_PLACES} /> // Implement this component to show places on a map
+                )}
+            </div>
         </div>
     );
 }

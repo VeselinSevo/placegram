@@ -2,12 +2,21 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+        <!-- <link rel="stylesheet" href="../../src/App.css" /> -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Vite + React</title>
+        <title>Place Tracker</title>
     </head>
-    <body class="dark:bg-bgDark">
-        <div class="dark:bg-bgDark min-h-screen" id="root"></div>
-        <script type="module" src="/src/main.jsx"></script>
+    <body class="bg-bg dark:bg-bg-dark text-text dark:text-text-dark">
+        <div>
+            <div id="side-drawer"></div>
+            <div id="backdrop"></div>
+            <div id="modal"></div>
+            <div
+                class="bg-bg dark:bg-bg-dark text-text dark:text-text-dark min-h-screen"
+                id="root"
+            ></div>
+            <script type="module" src="/src/main.jsx"></script>
+        </div>
     </body>
 </html>
