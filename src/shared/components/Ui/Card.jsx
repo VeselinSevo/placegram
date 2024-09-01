@@ -2,7 +2,7 @@
 export default function Card({ customClasses, disableHover, children }) {
     return (
         <div
-            className={`bg-white md:border text-text dark:text-text-dark md:border-hover shadow w-full md:max-w-3xl dark:bg-bg-dark dark:border-hover-dark overflow-hidden 
+            className={`bg-bg border border-hover dark:border dark:border-hover-dark dark:bg-bg-dark text-text dark:text-text-dark md:dark:border-hover-dark rounded-md shadow dark:shadow w-full md:max-w-3xl overflow-hidden 
             ${
                 !disableHover
                     ? "md:hover:bg-hover md:dark:hover:bg-hover-dark"

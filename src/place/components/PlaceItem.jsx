@@ -1,25 +1,21 @@
-/* eslint-disable react/prop-types */
+import React from "react";
 import { formatDistanceToNow } from "date-fns";
-
 import Map from "../../shared/components/Ui/Map";
 import Avatar from "../../shared/components/Ui/Avatar";
 import Card from "../../shared/components/Ui/Card";
+import Carousel from "../../shared/components/Ui/Carousel";
 
 export default function PlaceItem({ place }) {
     const postDate = new Date(place.postDate);
-    const isRecent = Date.now() - postDate.getTime() < 24 * 60 * 60 * 1000; // Checks if the post is within the last 24 hours
+    const isRecent = Date.now() - postDate.getTime() < 24 * 60 * 60 * 1000;
 
     const displayDate = isRecent
         ? `${formatDistanceToNow(postDate, { addSuffix: true })}`
         : `${postDate.toLocaleDateString()}`;
 
     return (
-        <Card className="rounded-lg">
-            <img
-                className="mb-2 object-cover w-full rounded-t-lg md:h-auto md:rounded-l-lg"
-                src={place.image}
-                alt={place.title}
-            />
+        <Card customClasses="max-w-md md:max-w-2xl rounded-lg cursor-pointer">
+            <Carousel images={place.images} />
             <div className="flex flex-col overflow-hidden w-full md:flex-row">
                 <div className="flex flex-col p-4 leading-normal w-full md:w-2/3">
                     <div className="flex items-center mb-4 gap-4">

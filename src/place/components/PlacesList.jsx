@@ -16,6 +16,12 @@ export default function PlacesList() {
                 address: "Grand Canyon, Arizona, USA",
             },
             image: "/places/thumbnail-images/place1.webp",
+            images: [
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place2.jpg",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+            ],
             description:
                 "Witnessed an amazing sunset at the Grand Canyon. The view was breathtaking, with the colors of the sky reflecting off the canyon walls.",
             country: "USA",
@@ -34,7 +40,13 @@ export default function PlacesList() {
                 longitude: 2.2944813,
                 address: "Eiffel Tower, Paris, France",
             },
-            image: "/places/thumbnail-images/place1.webp",
+            image: "/places/thumbnail-images/place2.jpg",
+            images: [
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+            ],
             description:
                 "The Eiffel Tower lit up at night is a sight to behold. The lights sparkle every hour, making it a magical experience.",
             country: "France",
@@ -54,6 +66,12 @@ export default function PlacesList() {
                 address: "Swiss Alps, Switzerland",
             },
             image: "/places/thumbnail-images/place1.webp",
+            images: [
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+            ],
             description:
                 "Spent a day hiking in the Swiss Alps. The scenery was stunning, with snow-capped peaks and lush green valleys.",
             country: "Switzerland",
@@ -73,6 +91,12 @@ export default function PlacesList() {
                 address: "Great Wall of China, Beijing, China",
             },
             image: "/places/thumbnail-images/place1.webp",
+            images: [
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+            ],
             description:
                 "Walked along the Great Wall of China. The sheer scale and history of the wall are awe-inspiring.",
             country: "China",
@@ -92,6 +116,12 @@ export default function PlacesList() {
                 address: "Serengeti National Park, Tanzania",
             },
             image: "/places/thumbnail-images/place1.webp",
+            images: [
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+            ],
             description:
                 "Had an unforgettable safari experience in Serengeti National Park. Saw lions, elephants, and a beautiful sunset over the savannah.",
             country: "Tanzania",
@@ -101,7 +131,7 @@ export default function PlacesList() {
     ];
 
     return (
-        <div className="container m-auto flex flex-col justify-center place-items-center gap-8 md:gap-8 px-10 my-4 md:my-10">
+        <div className="flex flex-col justify-center place-items-center gap-8 md:gap-8">
             {PLACES.length > 0 ? (
                 PLACES.map((place) => (
                     <PlaceItem place={place} key={place.id} />

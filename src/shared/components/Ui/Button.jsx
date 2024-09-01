@@ -14,8 +14,8 @@ export default function Button({
         primary: "bg-primary text-white",
         // Uncomment and customize additional variants if needed
         secondary: "bg-hover-dark dark:bg-hover text-text-dark dark:text-text",
-        // outline:
-        //     "border border-gray-300 text-gray-700 hover:bg-gray-100 focus:ring-gray-300 disabled:border-gray-200 disabled:text-gray-300",
+        outline:
+            "border border-hover dark:border-hover-dark text-text dark:text-text-dark hover:bg-hover dark:hover:bg-hover-dark focus:ring-gray-300 disabled:border-gray-200 disabled:text-gray-300",
     };
 
     const sizes = {

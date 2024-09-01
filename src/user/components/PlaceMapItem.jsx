@@ -20,13 +20,13 @@ export default function PlaceMapItem({ place }) {
                 style={{ height: "200px" }} // Fixed height for the image
             />
             <div className="md:flex flex-col !rounded-none !md:rounded-md flex-grow p-2 w-full justify-between hidden">
-                <h5 className="text-lg font-bold tracking-tight text-text dark:text-text-dark">
+                <h5 className="text-lg font-bold tracking-tight text-text-dark dark:text-text">
                     {place.title}
                 </h5>
-                <p className="!m-0 !mb-2 text-text dark:text-text-dark text-sm flex items-center">
+                <p className="!m-0 !mb-2 text-text-dark dark:text-text text-sm flex items-center">
                     Posted: {displayDate}
                 </p>
-                <p className="text-text dark:text-text-dark text-sm flex items-center !m-0">
+                <p className="text-text-dark dark:text-text text-sm flex items-center !m-0">
                     {place.description}
                 </p>
             </div>
