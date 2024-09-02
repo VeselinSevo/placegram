@@ -1,9 +1,10 @@
 import PlacesList from "../components/PlacesList";
+import PageWrapper from "../../shared/components/Ui/PageWrapper";
 
 export default function Places() {
     return (
-        <div>
+        <PageWrapper>
             <PlacesList></PlacesList>
-        </div>
+        </PageWrapper>
     );
 }

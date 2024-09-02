@@ -1,72 +1,84 @@
-import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
-import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Places from "./place/pages/Places";
 import NewPlace from "./place/pages/NewPlace";
 import User from "./user/pages/User";
-import Navbar from "./shared/components/Navigation/Navbar";
-import Footer from "./shared/components/Footer/Footer";
-import useDynamicHeight from "./hooks/useDynamicHeight"; // Import the custom hook
+import Place from "./place/pages/Place";
+import Login from "./auth/pages/Login/Login";
+import Register from "./auth/pages/Register/Register";
+import Layout from "./Layout";
+import AdminLayout from "./AdminLayout";
 
-function App() {
-    const { height, navbarRef, footerRef } = useDynamicHeight();
-    const [isDarkMode, setIsDarkMode] = useState(
-        localStorage.getItem("mode") == "dark" && true
-    );
+const fetchPlace = async ({ params }) => {
+    // Sample placeData with tagged people
+    const placeData = {
+        id: "1234567890",
+        creator: {
+            username: "john_doe",
+            profilePicture: "/users/profile-images/user1.jpg",
+            email: "john@example.com",
+        },
+        title: "Sunset at Grand Canyon",
+        location: {
+            latitude: 36.1069652,
+            longitude: -112.1129972,
+            address: "Grand Canyon, Arizona, USA",
+        },
+        image: "/places/thumbnail-images/place1.webp",
+        images: [
+            "/places/thumbnail-images/place1.webp",
+            "/places/thumbnail-images/place1.webp",
+            "/places/thumbnail-images/place1.webp",
+            "/places/thumbnail-images/place1.webp",
+        ],
+        description:
+            "Witnessed an amazing sunset at the Grand Canyon. The view was breathtaking, with the colors of the sky reflecting off the canyon walls.",
+        country: "USA",
+        visitDate: "2024-08-13T18:30:00Z",
+        postDate: "2024-08-14T10:00:00Z",
+        taggedPeople: [
+            {
+                username: "jane_doe",
+                profilePicture: "/users/profile-images/user1.jpg",
+            },
+            {
+                username: "alice_smith",
+                profilePicture: "/users/profile-images/user1.jpg",
+            },
+        ],
+    };
 
-    // Update dark mode state when the class on the body changes
-    useEffect(() => {
-        // setIsDarkMode(localStorage.getItem("mode") == "dark" && true);
-        const handleClassChange = () => {
-            setIsDarkMode(document.body.classList.contains("dark"));
-        };
+    return placeData;
+};
 
-        // Add an observer to listen for class changes
-        const observer = new MutationObserver(handleClassChange);
-        observer.observe(document.body, {
-            attributes: true,
-            attributeFilter: ["class"],
-        });
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Layout />, // Use the Layout component
+        children: [
+            { path: "/", element: <Places /> },
+            { path: "/places/new", element: <NewPlace /> },
+            { path: "/user/:id", element: <User /> },
+            { path: "/place/:id", element: <Place />, loader: fetchPlace },
+            { path: "/login", element: <Login /> },
+            { path: "/register", element: <Register /> },
+            { path: "*", element: <Places /> },
+        ],
+    },
+    {
+        path: "/admin",
+        element: <AdminLayout />, // Use the AdminLayout for admin routes
+        // children: [
+        //     { path: "dashboard", element: <AdminDashboard /> }, // Example admin dashboard route
+        //     { path: "users", element: <AdminUsers /> }, // Example admin users management route
+        //     // Add more admin routes here
+        // ],
+    },
+]);
 
-        return () => observer.disconnect();
-    }, []);
-
+export default function App() {
     return (
-        <div className="relative min-h-screen bg-bg dark:bg-bg-dark text-text dark:text-text-dark">
-            {/* Glowing Effect in Light Mode */}
-            <div
-                className="absolute transform
-                w-full h-[200px] md:h-[600px] bg-light-glow pointer-events-none 
-                dark:hidden z-0  mix-blend-multiply filter blur-2xl opacity-50"
-            ></div>
-            {/* Glowing Effect in Dark Mode */}
-            <div
-                className={`absolute transform w-full h-[200px] md:h-[600px] ${
-                    isDarkMode ? "bg-dark-glow" : "hidden"
-                } pointer-events-none z-0 mix-blend-lighten filter blur-2xl opacity-10`}
-            ></div>
-
-            {/* Navbar */}
-            <Navbar ref={navbarRef} />
-            {/* Main Content with dynamic height */}
-            <main
-                className="relative z-10 my-4 md:my-10"
-                style={{ minHeight: height }}
-            >
-                <Router>
-                    <Routes>
-                        <Route path="/" element={<Places />} />
-                        <Route path="/user" element={<User />} />
-                        <Route path="/places/new" element={<NewPlace />} />
-                        <Route path="*" element={<Places />} />
-                    </Routes>
-                </Router>
-            </main>
-            {/* Footer */}
-            <Footer ref={footerRef} />
-        </div>
+        <>
+            <RouterProvider router={router}></RouterProvider>
+        </>
     );
 }
-
-export default App;

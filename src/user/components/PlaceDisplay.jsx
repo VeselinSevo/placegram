@@ -103,7 +103,7 @@ export default function PlaceDisplay() {
         },
     ];
     return (
-        <div className="w-full m-auto md:mt-4 mt-3">
+        <div className="">
             <div className="flex justify-center gap-x-3 p-2">
                 <div
                     className={`cursor-pointer hover:text-hover-dark dark:hover:text-hover ${
@@ -122,7 +122,7 @@ export default function PlaceDisplay() {
                     Map
                 </div>
             </div>
-            <hr className="md:max-w-4xl m-auto"></hr>
+            <hr className="border-hover dark:border-hover-dark"></hr>
 
             <div className="w-full m-auto my-4 md:my-5 md:max-w-4xl">
                 {view === "grid" ? (

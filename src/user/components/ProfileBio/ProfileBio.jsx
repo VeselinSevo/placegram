@@ -5,7 +5,7 @@ import Bio from "./Bio";
 
 export default function ProfileBio() {
     return (
-        <div className="m-auto flex items-center gap-x-5 md:gap-x-10 text-text dark:text-text-dark w-full md:max-w-4xl px-4 md:px-0">
+        <div className="flex items-center gap-x-5 md:gap-x-10 px-4 md:px-0">
             <div>
                 <Avatar
                     src={"/places/thumbnail-images/place1.webp"}

@@ -54,7 +54,7 @@ const PlacesMapView = ({ places }) => {
         <MapContainer
             center={[0, 0]}
             zoom={2}
-            style={{ height: "500px", width: "100%" }}
+            style={{ height: "450px", width: "100%" }}
             className="rounded-md md:rounded-lg"
             whenCreated={(mapInstance) => (mapRef.current = mapInstance)} // Store the map instance
         >
