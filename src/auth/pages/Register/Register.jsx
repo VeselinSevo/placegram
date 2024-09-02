@@ -113,7 +113,7 @@ export default function Register() {
                                 type="submit"
                                 variant="primary"
                                 size="md"
-                                className="w-full"
+                                customClasses="w-full"
                             >
                                 Sign up
                             </Button>

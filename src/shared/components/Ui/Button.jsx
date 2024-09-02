@@ -4,11 +4,11 @@ export default function Button({
     type = "button",
     variant = "primary",
     size = "md",
-    className = "",
+    customClasses = "",
     disabled = false,
 }) {
     const baseStyles =
-        "inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-300 rounded-lg";
+        "w-auto inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-300 rounded-lg";
 
     const variants = {
         primary: "bg-primary text-white",
@@ -28,7 +28,7 @@ export default function Button({
         <button
             type={type}
             onClick={onClick}
-            className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
+            className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${customClasses}`}
             disabled={disabled}
         >
             {children}

@@ -75,7 +75,7 @@ export default function Login() {
                                 type="submit"
                                 variant="primary"
                                 size="md"
-                                className="w-full"
+                                customClasses="w-full"
                             >
                                 Sign in
                             </Button>

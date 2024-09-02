@@ -14,7 +14,9 @@ const Place = () => {
             <div className="">
                 {/* Title and Posting Details */}
                 <div className="mb-6">
-                    <h1 className="text-4xl font-bold mb-2">{place.title}</h1>
+                    <h1 className="text-2xl md:text-3xl font-bold mb-2">
+                        {place.title}
+                    </h1>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                         Posted on:{" "}
                         {new Date(place.postDate).toLocaleDateString()} |
@@ -31,7 +33,7 @@ const Place = () => {
                 <div className="flex flex-col md:flex-row gap-4">
                     <div className="w-full md:w-1/2 space-y-4">
                         <PostedByCard
-                            user={place.user}
+                            user={place.creator}
                             taggedPeople={place.taggedPeople}
                         />
                         <DescriptionCard description={place.description} />

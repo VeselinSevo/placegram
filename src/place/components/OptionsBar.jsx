@@ -10,11 +10,11 @@ import Button from "../../shared/components/Ui/Button";
 
 const OptionsBar = () => {
     return (
-        <div className="flex justify-between items-center py-4 border-t bg-bg dark:bg-bg-dark rounded-t-sm mt-8">
+        <div className="flex justify-between items-center py-4 border-t border-hover dark:border-hover-dark rounded-t-sm mt-8">
             {/* Report Button */}
             <Button
                 variant="outline"
-                className="flex items-center gap-2 text-text dark:text-text-dark self-end"
+                customClasses="flex items-center gap-2 text-text dark:text-text-dark self-end"
             >
                 <FontAwesomeIcon icon={faFlag} />
                 <span>Report</span>
@@ -24,7 +24,7 @@ const OptionsBar = () => {
                 {/* Share Button */}
                 <Button
                     variant="outline"
-                    className="flex items-center gap-2 text-text dark:text-text-dark"
+                    customClasses="flex items-center gap-2 text-text dark:text-text-dark"
                 >
                     <FontAwesomeIcon icon={faShareAlt} />
                     <span>Share</span>
@@ -33,7 +33,7 @@ const OptionsBar = () => {
                 {/* Save Button */}
                 <Button
                     variant="outline"
-                    className="flex items-center gap-2 text-text dark:text-text-dark "
+                    customClasses="flex items-center gap-2 text-text dark:text-text-dark "
                 >
                     <FontAwesomeIcon icon={faBookmark} />
                     <span>Save</span>
@@ -42,7 +42,7 @@ const OptionsBar = () => {
                 {/* Like Button */}
                 <Button
                     variant="outline"
-                    className="flex items-center gap-2 text-text dark:text-text-dark"
+                    customClasses="flex items-center gap-2 text-text dark:text-text-dark"
                 >
                     <FontAwesomeIcon icon={faHeart} className="text-red-600" />
                     <span>Like</span>
