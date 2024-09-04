@@ -3,23 +3,27 @@ import { useState, useEffect, useReducer, useCallback } from "react";
 const formReducer = (state, action) => {
     switch (action.type) {
         case "INPUT_CHANGE":
-            return {
-                ...state,
-                inputs: {
-                    ...state.inputs,
-                    [action.inputId]: {
-                        value: action.value,
-                        isValid: action.isValid,
-                    },
+            const updatedInputs = {
+                ...state.inputs,
+                [action.inputId]: {
+                    value: action.value,
+                    isValid: action.isValid,
                 },
-                isValid: Object.values(state.inputs).every(
-                    (input) => input.isValid
-                ),
+            };
+
+            const formIsValid = Object.values(updatedInputs).every(
+                (input) => input.isValid
+            );
+
+            return {
+                inputs: updatedInputs,
+                isValid: formIsValid,
             };
         default:
             return state;
     }
 };
+
 export const useForm = (initialInputs, initialFormValidity) => {
     const [formState, dispatch] = useReducer(formReducer, {
         inputs: initialInputs,
