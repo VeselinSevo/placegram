@@ -1,16 +1,44 @@
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useCallback } from "react";
+import useForm from "../../../shared/hooks/useForm";
+import {
+    VALIDATOR_REQUIRE,
+    VALIDATOR_EMAIL,
+    VALIDATOR_MINLENGTH,
+} from "../../../shared/util/validators";
 import PageWrapper from "../../../shared/components/Ui/PageWrapper";
 import Button from "../../../shared/components/Ui/Button";
 import Card from "../../../shared/components/Ui/Card";
 import googleLogo from "../../../assets/auth/google-logo.svg";
+import Input from "../../../shared/components/Ui/Input"; // Import custom Input
+import Label from "../../../shared/components/Ui/Label"; // Import custom Label
+
 export default function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [formState, inputHandler] = useForm(
+        {
+            email: {
+                value: "",
+                isValid: false,
+            },
+            password: {
+                value: "",
+                isValid: false,
+            },
+        },
+        false
+    );
 
     const handleLogin = (e) => {
+        console.log(123);
         e.preventDefault();
-        // Implement login logic here
+        console.log(formState.isValid);
+        if (formState.isValid) {
+            const { email, password } = formState.inputs;
+            // Implement login logic here using email.value and password.value
+            console.log("Logging in with:", email.value, password.value);
+        } else {
+            // Handle form validation errors
+            console.log("Form is invalid");
+        }
     };
 
     return (
@@ -25,38 +53,46 @@ export default function Login() {
                     </h2>
                     <form className="mt-8 space-y-6" onSubmit={handleLogin}>
                         <div>
-                            <label
+                            <Label
                                 htmlFor="email"
                                 className="block text-sm font-medium text-text dark:text-text-dark"
-                            >
-                                Email address
-                            </label>
-                            <input
+                                text="Email address"
+                            />
+                            <Input
                                 id="email"
                                 name="email"
                                 type="email"
                                 autoComplete="email"
                                 required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                errorText="Please enter valid email address"
+                                validators={[
+                                    VALIDATOR_REQUIRE(),
+                                    VALIDATOR_EMAIL(),
+                                ]}
+                                value={formState.inputs.email.value}
+                                onInput={inputHandler}
                                 className="mt-1 block w-full px-3 py-2 bg-bg dark:bg-bg-dark border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                             />
                         </div>
                         <div>
-                            <label
+                            <Label
                                 htmlFor="password"
                                 className="block text-sm font-medium text-text dark:text-text-dark"
-                            >
-                                Password
-                            </label>
-                            <input
+                                text="Password"
+                            />
+                            <Input
                                 id="password"
                                 name="password"
                                 type="password"
                                 autoComplete="current-password"
                                 required
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                errorText="Please enter valid password"
+                                validators={[
+                                    VALIDATOR_REQUIRE(),
+                                    VALIDATOR_MINLENGTH(8),
+                                ]}
+                                value={formState.inputs.password.value}
+                                onInput={inputHandler}
                                 className="mt-1 block w-full px-3 py-2 bg-bg dark:bg-bg-dark border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                             />
                         </div>
@@ -76,6 +112,7 @@ export default function Login() {
                                 variant="primary"
                                 size="md"
                                 customClasses="w-full"
+                                // disabled={!formState.isValid}
                             >
                                 Sign in
                             </Button>

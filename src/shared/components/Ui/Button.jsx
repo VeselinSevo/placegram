@@ -1,6 +1,8 @@
+import React from "react";
+
 export default function Button({
     children,
-    onClick,
+    onButtonClick,
     type = "button",
     variant = "primary",
     size = "md",
@@ -8,7 +10,7 @@ export default function Button({
     disabled = false,
 }) {
     const baseStyles =
-        "w-auto inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-300 rounded-lg";
+        "w-auto inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-300 rounded-lg cursor-pointer";
 
     const variants = {
         primary: "bg-primary text-white",
@@ -27,9 +29,9 @@ export default function Button({
     return (
         <button
             type={type}
-            onClick={onClick}
             className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${customClasses}`}
             disabled={disabled}
+            onClick={onButtonClick} // Make sure this line is present
         >
             {children}
         </button>

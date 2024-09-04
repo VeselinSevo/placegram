@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import Navbar from "./shared/components/Navigation/Navbar";
 import Footer from "./shared/components/Footer/Footer";
-import useDynamicHeight from "./hooks/useDynamicHeight";
+import useDynamicHeight from "./shared/hooks/useDynamicHeight";
 
 export default function Layout() {
     const { height, navbarRef, footerRef } = useDynamicHeight();

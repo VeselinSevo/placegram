@@ -1,21 +1,59 @@
 import { useState, useEffect } from "react";
+import useForm from "../../../shared/hooks/useForm";
 import PageWrapper from "../../../shared/components/Ui/PageWrapper";
 import Button from "../../../shared/components/Ui/Button";
 import Card from "../../../shared/components/Ui/Card";
 import googleLogo from "../../../assets/auth/google-logo.svg";
 import Input from "../../../shared/components/Ui/Input";
 import Label from "../../../shared/components/Ui/Label";
+import {
+    VALIDATOR_REQUIRE,
+    VALIDATOR_EMAIL,
+    VALIDATOR_MINLENGTH,
+} from "../../../shared/util/validators";
 
 export default function Register() {
-    const [fullName, setFullName] = useState("");
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [dob, setDob] = useState("");
+    const [formState, inputHandler] = useForm(
+        {
+            fullname: {
+                value: "",
+                isValid: false,
+            },
+            username: {
+                value: "",
+                isValid: false,
+            },
+            email: {
+                value: "",
+                isValid: false,
+            },
+            password: {
+                value: "",
+                isValid: false,
+            },
+            dob: {
+                value: "",
+                isValid: false,
+            },
+        },
+        false
+    );
 
     const handleRegister = (e) => {
         e.preventDefault();
+        console.log(123);
         // Implement register logic here
+        if (formState.isValid) {
+            console.log(
+                "Registration successful! Form data:",
+                formState.inputs
+            );
+        } else {
+            console.log(
+                "Registration failed. Please check your inputs.",
+                formState.inputs
+            );
+        }
     };
 
     return (
@@ -31,18 +69,20 @@ export default function Register() {
                     <form className="mt-8 space-y-6" onSubmit={handleRegister}>
                         <div>
                             <Label
-                                htmlFor="fullName"
+                                htmlFor="fullname"
                                 className="block text-sm font-medium text-text dark:text-text-dark"
                                 text="Full Name"
                             />
                             <Input
-                                id="fullName"
-                                name="fullName"
+                                id="fullname"
+                                name="fullname"
                                 type="text"
                                 autoComplete="name"
+                                value={formState.inputs.fullname.value}
+                                onInput={inputHandler}
+                                validators={[VALIDATOR_REQUIRE()]}
+                                errorText="Please enter a valid full name"
                                 required
-                                value={fullName}
-                                onChange={(e) => setFullName(e.target.value)}
                             />
                         </div>
                         <div>
@@ -56,9 +96,11 @@ export default function Register() {
                                 name="username"
                                 type="text"
                                 autoComplete="username"
+                                value={formState.inputs.username.value}
                                 required
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                onInput={inputHandler}
+                                validators={[VALIDATOR_REQUIRE()]}
+                                errorText="Please enter a valid username"
                             />
                         </div>
                         <div>
@@ -72,9 +114,11 @@ export default function Register() {
                                 name="email"
                                 type="email"
                                 autoComplete="email"
+                                value={formState.inputs.email.value}
                                 required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                onInput={inputHandler}
+                                validators={[VALIDATOR_EMAIL()]}
+                                errorText="Please enter a valid email address"
                             />
                         </div>
                         <div>
@@ -88,9 +132,11 @@ export default function Register() {
                                 name="password"
                                 type="password"
                                 autoComplete="new-password"
+                                value={formState.inputs.password.value}
                                 required
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onInput={inputHandler}
+                                validators={[VALIDATOR_MINLENGTH(8)]}
+                                errorText="Password must be at least 8 characters long"
                             />
                         </div>
                         <div>
@@ -103,9 +149,11 @@ export default function Register() {
                                 id="dob"
                                 name="dob"
                                 type="date"
+                                value={formState.inputs.dob.value}
                                 required
-                                value={dob}
-                                onChange={(e) => setDob(e.target.value)}
+                                onInput={inputHandler}
+                                validators={[VALIDATOR_REQUIRE()]}
+                                errorText="Please enter a valid date of birth"
                             />
                         </div>
                         <div>
