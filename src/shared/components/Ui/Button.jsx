@@ -1,6 +1,8 @@
+import React from "react";
+
 export default function Button({
     children,
-    onClick,
+    onButtonClick,
     type = "button",
     variant = "primary",
     size = "md",
@@ -8,14 +10,29 @@ export default function Button({
     disabled = false,
 }) {
     const baseStyles =
-        "w-auto inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-300 rounded-lg";
+        "w-auto inline-flex items-center text-sm md:text-base justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-300 rounded-lg";
 
     const variants = {
-        primary: "bg-primary text-white",
-        // Uncomment and customize additional variants if needed
-        secondary: "bg-hover-dark dark:bg-hover text-text-dark dark:text-text",
-        outline:
-            "border border-hover dark:border-hover-dark text-text dark:text-text-dark hover:bg-hover dark:hover:bg-hover-dark focus:ring-gray-300 disabled:border-gray-200 disabled:text-gray-300",
+        primary: `bg-primary text-white ${
+            disabled
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:bg-primary-dark focus:ring-primary-light cursor-pointer"
+        }`,
+        secondary: `bg-hover-dark dark:bg-hover text-text-dark dark:text-text ${
+            disabled
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:bg-hover-darker dark:hover:bg-hover-light focus:ring-hover cursor-pointer"
+        }`,
+        outline: `border ${
+            disabled
+                ? "border-gray-200 text-gray-300 cursor-not-allowed"
+                : "border-hover dark:border-hover-dark text-text dark:text-text-dark hover:bg-hover dark:hover:bg-hover-dark focus:ring-gray-300 cursor-pointer"
+        }`,
+        danger: `bg-red-600 text-white ${
+            disabled
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:bg-red-700 focus:ring-red-500 cursor-pointer"
+        }`,
     };
 
     const sizes = {
@@ -27,9 +44,9 @@ export default function Button({
     return (
         <button
             type={type}
-            onClick={onClick}
             className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${customClasses}`}
             disabled={disabled}
+            onClick={disabled ? undefined : onButtonClick}
         >
             {children}
         </button>

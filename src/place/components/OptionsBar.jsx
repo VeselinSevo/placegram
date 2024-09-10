@@ -14,7 +14,7 @@ const OptionsBar = () => {
             {/* Report Button */}
             <Button
                 variant="outline"
-                customClasses="flex items-center gap-2 text-text dark:text-text-dark self-end"
+                customClasses="flex items-center gap-2 text-text dark:text-text-dark self-end text-sm md:text-base"
             >
                 <FontAwesomeIcon icon={faFlag} />
                 <span>Report</span>
@@ -24,7 +24,7 @@ const OptionsBar = () => {
                 {/* Share Button */}
                 <Button
                     variant="outline"
-                    customClasses="flex items-center gap-2 text-text dark:text-text-dark"
+                    customClasses="flex items-center gap-2 text-text dark:text-text-dark text-sm md:text-base"
                 >
                     <FontAwesomeIcon icon={faShareAlt} />
                     <span>Share</span>
@@ -33,7 +33,7 @@ const OptionsBar = () => {
                 {/* Save Button */}
                 <Button
                     variant="outline"
-                    customClasses="flex items-center gap-2 text-text dark:text-text-dark "
+                    customClasses="flex items-center gap-2 text-text dark:text-text-dark text-sm md:text-base"
                 >
                     <FontAwesomeIcon icon={faBookmark} />
                     <span>Save</span>
@@ -42,7 +42,7 @@ const OptionsBar = () => {
                 {/* Like Button */}
                 <Button
                     variant="outline"
-                    customClasses="flex items-center gap-2 text-text dark:text-text-dark"
+                    customClasses="flex items-center gap-2 text-text dark:text-text-dark text-sm md:text-base"
                 >
                     <FontAwesomeIcon icon={faHeart} className="text-red-600" />
                     <span>Like</span>

@@ -39,6 +39,10 @@ export default {
                     "linear-gradient(45deg, #ffffff 0%, #ffffff 65%, #c1e6ed 66%, #f5c6f2 67%, #ffffff 79%, #9db1f7 80%, #7f9bf5 81%, #6285f6 82%, #ffffff 85%, #ffffff 100%)",
                 "dark-glow":
                     "linear-gradient(45deg, #0f172a 0%, #0f172a 65%, #18c3c4 66%, #189ac4 67%, #0f172a 79%, #5a18c4 80%, #c816d9 81%, #f309dd 82%, #0f172a 85%, #0f172a 100%)",
+                "light-glow-progress":
+                    "linear-gradient(47deg, rgba(251,236,250,1) 0%, rgba(228,234,253,1) 50%, rgba(56,189,248,1) 100%)",
+                "dark-glow-progress":
+                    "linear-gradient(47deg, rgba(15,23,42,1) 0%, rgba(38,134,118,1) 54%, rgba(56,189,248,1) 100%)",
             },
         },
     },

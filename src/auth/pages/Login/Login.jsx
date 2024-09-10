@@ -1,16 +1,59 @@
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useCallback } from "react";
+import useForm from "../../../shared/hooks/useForm";
+import {
+    VALIDATOR_REQUIRE,
+    VALIDATOR_EMAIL,
+    VALIDATOR_MINLENGTH,
+} from "../../../shared/util/validators";
 import PageWrapper from "../../../shared/components/Ui/PageWrapper";
 import Button from "../../../shared/components/Ui/Button";
 import Card from "../../../shared/components/Ui/Card";
 import googleLogo from "../../../assets/auth/google-logo.svg";
+import Input from "../../../shared/components/Ui/Input"; // Import custom Input
+import Label from "../../../shared/components/Ui/Label"; // Import custom Label
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../../authSlice";
+import { useNavigate } from "react-router-dom";
+
 export default function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+    const isLoggedIn = useSelector((state) => state.auth.value.isLoggedIn);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate("/");
+        }
+    }, [isLoggedIn, navigate]);
+
+    const [formState, inputHandler] = useForm(
+        {
+            email: {
+                value: "",
+                isValid: false,
+            },
+            password: {
+                value: "",
+                isValid: false,
+            },
+        },
+        false
+    );
 
     const handleLogin = (e) => {
+        console.log(123);
         e.preventDefault();
-        // Implement login logic here
+        console.log(formState.isValid);
+        if (formState.isValid) {
+            const { email, password } = formState.inputs;
+            // Implement login logic here using email.value and password.value
+            console.log("Logging in with:", email.value, password.value);
+            dispatch(login({ email: email.value, password: password.value }));
+            navigate("/");
+        } else {
+            // Handle form validation errors
+            console.log("Form is invalid");
+        }
     };
 
     return (
@@ -19,48 +62,46 @@ export default function Login() {
                 disableHover
                 customClasses="flex justify-center items-center bg-bg dark:bg-bg-dark !md:border !md:border-hover !dark:md:border !dark:md:border-hover-dark md:max-w-md dark:bg-transparent bg-transparent"
             >
-                <div className="w-full p-8 space-y-8">
-                    <h2 className="text-2xl font-bold text-text dark:text-text-dark text-center">
+                <div className="w-full p-8">
+                    <h2 className="md:text-2xl text-xl mb-4 font-bold text-text dark:text-text-dark text-center">
                         Login
                     </h2>
-                    <form className="mt-8 space-y-6" onSubmit={handleLogin}>
-                        <div>
-                            <label
-                                htmlFor="email"
-                                className="block text-sm font-medium text-text dark:text-text-dark"
-                            >
-                                Email address
-                            </label>
-                            <input
+                    <form className="" onSubmit={handleLogin}>
+                        <div className="mb-4">
+                            <Label htmlFor="email" text="Email address" />
+                            <Input
                                 id="email"
                                 name="email"
                                 type="email"
                                 autoComplete="email"
                                 required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="mt-1 block w-full px-3 py-2 bg-bg dark:bg-bg-dark border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                                errorText="Please enter valid email address"
+                                validators={[
+                                    VALIDATOR_REQUIRE(),
+                                    VALIDATOR_EMAIL(),
+                                ]}
+                                value={formState.inputs.email.value}
+                                onInput={inputHandler}
                             />
                         </div>
-                        <div>
-                            <label
-                                htmlFor="password"
-                                className="block text-sm font-medium text-text dark:text-text-dark"
-                            >
-                                Password
-                            </label>
-                            <input
+                        <div className="mb-4">
+                            <Label htmlFor="password" text="Password" />
+                            <Input
                                 id="password"
                                 name="password"
                                 type="password"
                                 autoComplete="current-password"
                                 required
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className="mt-1 block w-full px-3 py-2 bg-bg dark:bg-bg-dark border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                                errorText="Please enter valid password"
+                                validators={[
+                                    VALIDATOR_REQUIRE(),
+                                    VALIDATOR_MINLENGTH(8),
+                                ]}
+                                value={formState.inputs.password.value}
+                                onInput={inputHandler}
                             />
                         </div>
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between mb-3 md:mb-4">
                             <div className="text-sm">
                                 <a
                                     href="#"
@@ -75,21 +116,22 @@ export default function Login() {
                                 type="submit"
                                 variant="primary"
                                 size="md"
-                                customClasses="w-full"
+                                customClasses="w-full mt-2"
+                                // disabled={!formState.isValid}
                             >
                                 Sign in
                             </Button>
                         </div>
                     </form>
-                    <div className="mt-8 space-y-4">
+                    <div className="">
                         <div className="flex justify-between items-center">
                             <hr className="w-full border-gray-300 dark:border-gray-600" />
-                            <span className="px-3 text-sm text-nowrap text-text dark:text-text-dark">
+                            <span className="my-6 px-3 text-sm text-nowrap text-text dark:text-text-dark">
                                 Or continue with
                             </span>
                             <hr className="w-full border-gray-300 dark:border-gray-600" />
                         </div>
-                        <div className="flex justify-between items-center mt-8 space-x-4">
+                        <div className="flex justify-between items-center space-x-4">
                             <Card customClasses="flex-1 flex justify-center items-center p-2 cursor-pointer rounded-lg">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"

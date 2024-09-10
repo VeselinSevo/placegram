@@ -1,9 +1,8 @@
 import PlacesListView from "./PlacesListView";
 import PlacesMapView from "./PlacesMapView";
-
 import { useState } from "react";
 
-export default function PlaceDisplay() {
+export default function PlaceDisplay({ isOwner }) {
     const [view, setView] = useState("grid"); // "grid" or "map"
     const USER_PLACES = [
         {
@@ -126,9 +125,9 @@ export default function PlaceDisplay() {
 
             <div className="w-full m-auto my-4 md:my-5 md:max-w-4xl">
                 {view === "grid" ? (
-                    <PlacesListView places={USER_PLACES} />
+                    <PlacesListView places={USER_PLACES} isOwner={isOwner} />
                 ) : (
-                    <PlacesMapView places={USER_PLACES} /> // Implement this component to show places on a map
+                    <PlacesMapView places={USER_PLACES} isOwner={isOwner} /> // Implement this component to show places on a map
                 )}
             </div>
         </div>

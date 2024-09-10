@@ -6,7 +6,11 @@ export default function PlacesListView(props) {
         <div className="grid grid-cols-3 gap-1 justify-center place-items-center md:gap-2 ">
             {props.places.length > 0 ? (
                 props.places.map((place) => (
-                    <PlaceItem place={place} key={place.id} />
+                    <PlaceItem
+                        place={place}
+                        isOwner={props.isOwner}
+                        key={place.id}
+                    />
                 ))
             ) : (
                 <Card className="h-full flex flex-col">

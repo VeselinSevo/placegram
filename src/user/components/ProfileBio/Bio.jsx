@@ -1,7 +1,7 @@
 export default function Bio() {
     return (
         <>
-            <div className="mb-1 md:mb-3 flex flex-col gap-x-5 text-text dark:text-text-dark">
+            <div className="mb-3 md:mb-4 flex flex-col gap-x-5 text-text dark:text-text-dark">
                 <div>
                     <span className="mr-1 font-bold md:text-base">
                         Veselin Sevo
