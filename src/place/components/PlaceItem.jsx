@@ -43,41 +43,36 @@ export default function PlaceItem({ place }) {
                 <div className="flex flex-col overflow-hidden w-full md:flex-row">
                     <div className="flex flex-col p-4 leading-normal w-full md:w-2/3">
                         <div className="flex items-center mb-4 gap-4">
-                            <Avatar
-                                src={place?.creator?.profilePicture}
-                                alt={place?.creator?.username || "Default User"}
-                            />
-
+                            <Link to={"/user/" + place.creator.id}>
+                                <Avatar
+                                    src={place?.creator?.profilePicture}
+                                    alt={
+                                        place?.creator?.username ||
+                                        "Default User"
+                                    }
+                                />
+                            </Link>
                             <div>
-                                <p className="text-text dark:text-text-dark font-bold">
-                                    {place.creator.username}
-                                </p>
-                                <p className="text-text dark:text-text-dark text-sm">
+                                <Link to={"/user/" + place.creator.id}>
+                                    <p className="text-text text-sm md:text-base dark:text-text-dark font-bold hover:text-hover-dark dark:hover:text-hover">
+                                        {place.creator.username}
+                                    </p>
+                                </Link>
+                                <p className="text-text text-sm md:text-base dark:text-text-dark">
                                     Posted: {displayDate}
                                 </p>
                             </div>
                         </div>
                         <Link to={"/place/" + place.id}>
-                            <h3 className="mb-1 text-2xl font-bold tracking-tight text-text dark:text-text-dark cursor-pointer">
+                            <h3 className="mb-1 text-xl md:text-2xl font-bold tracking-tight hover:text-hover-dark dark:hover:text-hover hover:underline text-text dark:text-text-dark cursor-pointer">
                                 {place.title}
                             </h3>
                         </Link>
                         <p className="mb-3 text-sm">
                             {place.location.address} ,{" "}
                             {new Date(place.visitDate).toLocaleDateString()}
-                            {/* , - {place.country}{" "}
-                            <img
-                                className="ml-2 h-4 w-6"
-                                src={`https://flagcdn.com/${place.country
-                                    .toLowerCase()
-                                    .substring(0, 2)}.svg`}
-                                alt={`${place.country} flag`}
-                            /> */}
                         </p>
-                        {/* <p className="mb-3 text-text dark:text-text-dark text-sm flex items-center">
-                            {new Date(place.visitDate).toLocaleDateString()}
-                        </p> */}
-                        <p className="mb-3 font-normal text-text dark:text-text-dark">
+                        <p className="mb-3 text-sm md:text-base font-normal text-text dark:text-text-dark">
                             {place.description}
                         </p>
                     </div>

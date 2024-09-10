@@ -28,7 +28,7 @@ export default function MapComponent({ location, height }) {
                     // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
                 <Marker position={[location.latitude, location.longitude]}>
-                    <Popup>{location.address}</Popup>
+                    <Popup>{location.adACCCdress}</Popup>
                 </Marker>
             </MapContainer>
         </div>

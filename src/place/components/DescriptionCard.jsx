@@ -6,7 +6,7 @@ const DescriptionCard = ({ description }) => {
             <h2 className="text-lg md:text-xl font-semibold mb-4">
                 Description
             </h2>
-            <p className="text-md md:text-md text-text dark:text-text-dark">
+            <p className="text-sm md:text-base text-text dark:text-text-dark">
                 {description}
             </p>
         </Card>

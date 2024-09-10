@@ -1,8 +1,10 @@
 import { createPortal } from "react-dom";
+import { useEffect } from "react";
 import Card from "./Card";
 import Backdrop from "./Backdrop";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
+import { disableBodyScroll, enableBodyScroll } from "../../util/bodyScroll";
 
 // Modal Component
 export default function Modal({
@@ -12,6 +14,11 @@ export default function Modal({
     showCloseIcon = false, // New prop to control the display of the close icon
     children,
 }) {
+    useEffect(() => {
+        disableBodyScroll();
+        return () => enableBodyScroll();
+    }, []);
+
     return createPortal(
         <>
             {/* Backdrop */}

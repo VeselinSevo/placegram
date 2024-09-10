@@ -6,6 +6,7 @@ export default function PlacesList() {
         {
             id: "1234567890",
             creator: {
+                id: "1",
                 username: "john_doe",
                 profilePicture: "/users/profile-images/user1.jpg",
             },
@@ -31,6 +32,7 @@ export default function PlacesList() {
         {
             id: "2345678901",
             creator: {
+                id: "2",
                 username: "john_doe",
                 profilePicture: "/users/profile-images/user1.jpg",
             },
@@ -56,6 +58,7 @@ export default function PlacesList() {
         {
             id: "3456789012",
             creator: {
+                id: "3",
                 username: "john_doe",
                 profilePicture: "/users/profile-images/user1.jpg",
             },
@@ -81,6 +84,7 @@ export default function PlacesList() {
         {
             id: "4567890123",
             creator: {
+                id: "4",
                 username: "john_doe",
                 profilePicture: "/users/profile-images/user1.jpg",
             },
@@ -106,6 +110,7 @@ export default function PlacesList() {
         {
             id: "5678901234",
             creator: {
+                id: "5",
                 username: "john_doe",
                 profilePicture: "/users/profile-images/user1.jpg",
             },

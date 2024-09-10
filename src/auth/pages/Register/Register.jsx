@@ -64,17 +64,13 @@ export default function Register() {
                 disableHover
                 customClasses="flex justify-center items-center bg-bg dark:bg-bg-dark !md:border !md:border-hover !dark:md:border !dark:md:border-hover-dark md:max-w-md dark:bg-transparent bg-transparent"
             >
-                <div className="w-full p-8 space-y-8">
-                    <h2 className="text-2xl font-bold text-text dark:text-text-dark text-center">
+                <div className="w-full p-8">
+                    <h2 className="md:text-2xl text-xl mb-4 font-bold text-text dark:text-text-dark text-center">
                         Register
                     </h2>
-                    <form className="mt-8 space-y-6" onSubmit={handleRegister}>
-                        <div>
-                            <Label
-                                htmlFor="fullname"
-                                className="block text-sm font-medium text-text dark:text-text-dark"
-                                text="Full Name"
-                            />
+                    <form className="" onSubmit={handleRegister}>
+                        <div className="mb-3 md:mb-4">
+                            <Label htmlFor="fullname" text="Full Name" />
                             <Input
                                 id="fullname"
                                 name="fullname"
@@ -87,12 +83,8 @@ export default function Register() {
                                 required
                             />
                         </div>
-                        <div>
-                            <Label
-                                htmlFor="username"
-                                className="block text-sm font-medium text-text dark:text-text-dark"
-                                text="Username"
-                            />
+                        <div className="mb-4">
+                            <Label htmlFor="username" text="Username" />
                             <Input
                                 id="username"
                                 name="username"
@@ -105,12 +97,8 @@ export default function Register() {
                                 errorText="Please enter a valid username"
                             />
                         </div>
-                        <div>
-                            <Label
-                                htmlFor="email"
-                                className="block text-sm font-medium text-text dark:text-text-dark"
-                                text="Email address"
-                            />
+                        <div className="mb-4">
+                            <Label htmlFor="email" text="Email address" />
                             <Input
                                 id="email"
                                 name="email"
@@ -123,12 +111,8 @@ export default function Register() {
                                 errorText="Please enter a valid email address"
                             />
                         </div>
-                        <div>
-                            <Label
-                                htmlFor="password"
-                                className="block text-sm font-medium text-text dark:text-text-dark"
-                                text="Password"
-                            />
+                        <div className="mb-4">
+                            <Label htmlFor="password" text="Password" />
                             <Input
                                 id="password"
                                 name="password"
@@ -141,12 +125,8 @@ export default function Register() {
                                 errorText="Password must be at least 8 characters long"
                             />
                         </div>
-                        <div>
-                            <Label
-                                htmlFor="dob"
-                                className="block text-sm font-medium text-text dark:text-text-dark"
-                                text="Date of Birth"
-                            />
+                        <div className="mb-4">
+                            <Label htmlFor="dob" text="Date of Birth" />
                             <Input
                                 id="dob"
                                 name="dob"
@@ -163,22 +143,22 @@ export default function Register() {
                                 type="submit"
                                 variant="primary"
                                 size="md"
-                                customClasses="w-full"
+                                customClasses="w-full mt-3"
                             >
                                 Sign up
                             </Button>
                         </div>
                     </form>
-                    <div className="mt-8 space-y-4">
+                    <div className="">
                         <div className="flex justify-between items-center">
                             <hr className="w-full border-gray-300 dark:border-gray-600" />
-                            <span className="px-3 text-sm text-nowrap text-text dark:text-text-dark">
+                            <span className="my-6 px-3 text-sm text-nowrap text-text dark:text-text-dark">
                                 Or continue with
                             </span>
                             <hr className="w-full border-gray-300 dark:border-gray-600" />
                         </div>
-                        <div className="flex justify-between items-center mt-8 space-x-4">
-                            <Card customClasses="flex-1 flex justify-center items-center p-2 cursor-pointer rounded-lg">
+                        <div className="flex justify-between items-center space-x-4">
+                            <Card customClasses="flex-1 flex md:base text-sm justify-center items-center p-2 cursor-pointer rounded-lg">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 22.773 22.773"
@@ -190,7 +170,7 @@ export default function Register() {
                                 </svg>
                                 Apple
                             </Card>
-                            <Card customClasses="flex-1 flex justify-center items-center p-2 cursor-pointer rounded-lg">
+                            <Card customClasses="flex-1 flex md:base text-sm justify-center items-center p-2 cursor-pointer rounded-lg">
                                 <img
                                     src={googleLogo}
                                     alt="Google"

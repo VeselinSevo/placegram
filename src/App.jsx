@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import Places from "./place/pages/Places";
 import NewPlace from "./place/pages/NewPlace";
 import User from "./user/pages/User";
@@ -7,12 +8,14 @@ import Login from "./auth/pages/Login/Login";
 import Register from "./auth/pages/Register/Register";
 import Layout from "./Layout";
 import AdminLayout from "./AdminLayout";
+import { useSelector } from "react-redux";
 
 const fetchPlace = async ({ params }) => {
     // Sample placeData with tagged people
     const placeData = {
         id: "1234567890",
         creator: {
+            id: "1",
             username: "john_doe",
             profilePicture: "/users/profile-images/user1.jpg",
             email: "john@example.com",
@@ -37,10 +40,12 @@ const fetchPlace = async ({ params }) => {
         postDate: "2024-08-14T10:00:00Z",
         taggedPeople: [
             {
+                id: "2",
                 username: "jane_doe",
                 profilePicture: "/users/profile-images/user1.jpg",
             },
             {
+                id: "3",
                 username: "alice_smith",
                 profilePicture: "/users/profile-images/user1.jpg",
             },
@@ -50,32 +55,63 @@ const fetchPlace = async ({ params }) => {
     return placeData;
 };
 
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Layout />, // Use the Layout component
-        children: [
-            { path: "/", element: <Places /> },
-            { path: "/places/new", element: <NewPlace /> },
-            { path: "/user/:id", element: <User /> },
-            { path: "/place/:id", element: <Place />, loader: fetchPlace },
-            { path: "/login", element: <Login /> },
-            { path: "/register", element: <Register /> },
-            { path: "*", element: <Places /> },
-        ],
-    },
-    {
-        path: "/admin",
-        element: <AdminLayout />, // Use the AdminLayout for admin routes
-        // children: [
-        //     { path: "dashboard", element: <AdminDashboard /> }, // Example admin dashboard route
-        //     { path: "users", element: <AdminUsers /> }, // Example admin users management route
-        //     // Add more admin routes here
-        // ],
-    },
-]);
-
 export default function App() {
+    const isLoggedIn = useSelector((state) => state.auth.value.isLoggedIn);
+    // const isLoggedIn = true;
+    let isAdmin = false;
+
+    let routes = [];
+
+    if (isLoggedIn) {
+        routes = [
+            {
+                path: "/",
+                element: <Layout />, // Use the Layout component
+                children: [
+                    { path: "/", element: <Places /> },
+                    { path: "/places/new", element: <NewPlace /> },
+                    { path: "/user/:id", element: <User /> },
+                    {
+                        path: "/place/:id",
+                        element: <Place />,
+                        loader: fetchPlace,
+                    },
+                    { path: "*", element: <Places /> },
+                ],
+            },
+        ];
+    } else {
+        routes = [
+            {
+                path: "/",
+                element: <Layout />, // Use the Layout component
+                children: [
+                    { path: "/", element: <Places /> },
+                    { path: "/user/:id", element: <User /> },
+                    {
+                        path: "/place/:id",
+                        element: <Place />,
+                        loader: fetchPlace,
+                    },
+                    { path: "/login", element: <Login /> },
+                    { path: "/register", element: <Register /> },
+                    { path: "*", element: <Places /> },
+                ],
+            },
+        ];
+    }
+
+    if (isAdmin) {
+        routes = [
+            {
+                path: "/admin",
+                element: <AdminLayout />, // Use the AdminLayout for admin routes
+            },
+        ];
+    }
+
+    const router = createBrowserRouter(routes);
+
     return (
         <>
             <RouterProvider router={router}></RouterProvider>
