@@ -9,8 +9,8 @@ import Button from "../../shared/components/Ui/Button";
 import Modal from "../../shared/components/Ui/Modal";
 import { Link } from "react-router-dom";
 
-export default function PlaceItem({ place }) {
-    const postDate = new Date(place.postDate);
+export default function PostItem({ post }) {
+    const postDate = new Date(post.postDate);
     const isRecent = Date.now() - postDate.getTime() < 24 * 60 * 60 * 1000;
 
     const displayDate = isRecent
@@ -32,30 +32,30 @@ export default function PlaceItem({ place }) {
             {isModalOpen && (
                 <Modal disableHover onClose={closeModal} showCloseIcon>
                     <h2 className="mb-3 text-xl font-bold tracking-tight">
-                        {place.location.address}
+                        {post.location.address}
                     </h2>
-                    <Map location={place.location} height="300px" />
+                    <Map location={post.location} height="300px" />
                 </Modal>
             )}
 
             <Card customClasses="max-w-md md:max-w-xl rounded-lg" disableHover>
-                <Carousel images={place.images} />
+                <Carousel images={post.images} />
                 <div className="flex flex-col overflow-hidden w-full md:flex-row">
                     <div className="flex flex-col p-4 leading-normal w-full md:w-2/3">
                         <div className="flex items-center mb-4 gap-4">
-                            <Link to={"/user/" + place.creator.id}>
+                            <Link to={"/user/" + post.creator.id}>
                                 <Avatar
-                                    src={place?.creator?.profilePicture}
+                                    src={post?.creator?.profilePicture}
                                     alt={
-                                        place?.creator?.username ||
+                                        post?.creator?.username ||
                                         "Default User"
                                     }
                                 />
                             </Link>
                             <div>
-                                <Link to={"/user/" + place.creator.id}>
+                                <Link to={"/user/" + post.creator.id}>
                                     <p className="text-text text-sm md:text-base dark:text-text-dark font-bold hover:text-hover-dark dark:hover:text-hover">
-                                        {place.creator.username}
+                                        {post.creator.username}
                                     </p>
                                 </Link>
                                 <p className="text-text text-sm md:text-base dark:text-text-dark">
@@ -63,21 +63,21 @@ export default function PlaceItem({ place }) {
                                 </p>
                             </div>
                         </div>
-                        <Link to={"/place/" + place.id}>
+                        <Link to={"/post/" + post.id}>
                             <h3 className="mb-1 text-xl md:text-2xl font-bold tracking-tight hover:text-hover-dark dark:hover:text-hover hover:underline text-text dark:text-text-dark cursor-pointer">
-                                {place.title}
+                                {post.title}
                             </h3>
                         </Link>
                         <p className="mb-3 text-sm">
-                            {place.location.address} ,{" "}
-                            {new Date(place.visitDate).toLocaleDateString()}
+                            {post.location.address} ,{" "}
+                            {new Date(post.visitDate).toLocaleDateString()}
                         </p>
                         <p className="mb-3 text-sm md:text-base font-normal text-text dark:text-text-dark">
-                            {place.description}
+                            {post.description}
                         </p>
                     </div>
                     <div className="hidden md:block w-full md:w-1/3 pt-2 md:py-4">
-                        <Map location={place.location} height="220px" />
+                        <Map location={post.location} height="220px" />
                     </div>
                     <div className="md:hidden block px-4">
                         <Button

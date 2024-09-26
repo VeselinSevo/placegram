@@ -1,13 +1,12 @@
-import PlacesListView from "./PlacesListView";
-import PlacesMapView from "./PlacesMapView";
-import { useState } from "react";
+import PostItem from "./PostItem";
+import Card from "../../shared/components/Ui/Card";
 
-export default function PlaceDisplay({ isOwner }) {
-    const [view, setView] = useState("grid"); // "grid" or "map"
-    const USER_PLACES = [
+export default function PostsList() {
+    const POSTS = [
         {
             id: "1234567890",
-            user: {
+            creator: {
+                id: "1",
                 username: "john_doe",
                 profilePicture: "/users/profile-images/user1.jpg",
             },
@@ -18,6 +17,12 @@ export default function PlaceDisplay({ isOwner }) {
                 address: "Grand Canyon, Arizona, USA",
             },
             image: "/places/thumbnail-images/place1.webp",
+            images: [
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place2.jpg",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+            ],
             description:
                 "Witnessed an amazing sunset at the Grand Canyon. The view was breathtaking, with the colors of the sky reflecting off the canyon walls.",
             country: "USA",
@@ -26,7 +31,8 @@ export default function PlaceDisplay({ isOwner }) {
         },
         {
             id: "2345678901",
-            user: {
+            creator: {
+                id: "2",
                 username: "john_doe",
                 profilePicture: "/users/profile-images/user1.jpg",
             },
@@ -36,7 +42,13 @@ export default function PlaceDisplay({ isOwner }) {
                 longitude: 2.2944813,
                 address: "Eiffel Tower, Paris, France",
             },
-            image: "/places/thumbnail-images/place1.webp",
+            image: "/places/thumbnail-images/place2.jpg",
+            images: [
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+            ],
             description:
                 "The Eiffel Tower lit up at night is a sight to behold. The lights sparkle every hour, making it a magical experience.",
             country: "France",
@@ -45,7 +57,8 @@ export default function PlaceDisplay({ isOwner }) {
         },
         {
             id: "3456789012",
-            user: {
+            creator: {
+                id: "3",
                 username: "john_doe",
                 profilePicture: "/users/profile-images/user1.jpg",
             },
@@ -56,6 +69,12 @@ export default function PlaceDisplay({ isOwner }) {
                 address: "Swiss Alps, Switzerland",
             },
             image: "/places/thumbnail-images/place1.webp",
+            images: [
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+            ],
             description:
                 "Spent a day hiking in the Swiss Alps. The scenery was stunning, with snow-capped peaks and lush green valleys.",
             country: "Switzerland",
@@ -64,7 +83,8 @@ export default function PlaceDisplay({ isOwner }) {
         },
         {
             id: "4567890123",
-            user: {
+            creator: {
+                id: "4",
                 username: "john_doe",
                 profilePicture: "/users/profile-images/user1.jpg",
             },
@@ -75,6 +95,12 @@ export default function PlaceDisplay({ isOwner }) {
                 address: "Great Wall of China, Beijing, China",
             },
             image: "/places/thumbnail-images/place1.webp",
+            images: [
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+            ],
             description:
                 "Walked along the Great Wall of China. The sheer scale and history of the wall are awe-inspiring.",
             country: "China",
@@ -83,7 +109,8 @@ export default function PlaceDisplay({ isOwner }) {
         },
         {
             id: "5678901234",
-            user: {
+            creator: {
+                id: "5",
                 username: "john_doe",
                 profilePicture: "/users/profile-images/user1.jpg",
             },
@@ -94,6 +121,12 @@ export default function PlaceDisplay({ isOwner }) {
                 address: "Serengeti National Park, Tanzania",
             },
             image: "/places/thumbnail-images/place1.webp",
+            images: [
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+                "/places/thumbnail-images/place1.webp",
+            ],
             description:
                 "Had an unforgettable safari experience in Serengeti National Park. Saw lions, elephants, and a beautiful sunset over the savannah.",
             country: "Tanzania",
@@ -101,35 +134,22 @@ export default function PlaceDisplay({ isOwner }) {
             postDate: "2024-04-11T10:00:00Z",
         },
     ];
-    return (
-        <div className="">
-            <div className="flex justify-center gap-x-3 p-2">
-                <div
-                    className={`cursor-pointer hover:text-hover-dark dark:hover:text-hover ${
-                        view === "grid" ? "text-primary" : ""
-                    }`}
-                    onClick={() => setView("grid")}
-                >
-                    Grid
-                </div>
-                <div
-                    className={`cursor-pointer hover:text-hover-dark dark:hover:text-hover ${
-                        view === "map" ? "text-primary" : ""
-                    }`}
-                    onClick={() => setView("map")}
-                >
-                    Map
-                </div>
-            </div>
-            <hr className="border-hover dark:border-hover-dark"></hr>
 
-            <div className="w-full m-auto my-4 md:my-5 md:max-w-4xl">
-                {view === "grid" ? (
-                    <PlacesListView places={USER_PLACES} isOwner={isOwner} />
-                ) : (
-                    <PlacesMapView places={USER_PLACES} isOwner={isOwner} /> // Implement this component to show places on a map
-                )}
-            </div>
+    return (
+        <div className="flex flex-col justify-center place-items-center gap-8 md:gap-8">
+            {POSTS.length > 0 ? (
+                POSTS.map((post) => <PostItem post={post} key={post.id} />)
+            ) : (
+                <Card>
+                    <div className="flex flex-col items-center justify-center p-3">
+                        <h3>
+                            There are no posts shared with you. Let's add some
+                            friends!
+                        </h3>
+                        <button>Add friend</button>
+                    </div>
+                </Card>
+            )}
         </div>
     );
 }

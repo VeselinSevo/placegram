@@ -39,6 +39,8 @@ export default function Register() {
         false
     );
 
+    const [showValidationErrors, setShowValidationErrors] = useState(false);
+
     const handleRegister = (e) => {
         e.preventDefault();
         console.log("-----------------------------------");
@@ -80,6 +82,7 @@ export default function Register() {
                                 onInput={inputHandler}
                                 validators={[VALIDATOR_REQUIRE()]}
                                 errorText="Please enter a valid full name"
+                                showError={showValidationErrors}
                                 required
                             />
                         </div>
@@ -95,6 +98,7 @@ export default function Register() {
                                 onInput={inputHandler}
                                 validators={[VALIDATOR_REQUIRE()]}
                                 errorText="Please enter a valid username"
+                                showError={showValidationErrors}
                             />
                         </div>
                         <div className="mb-4">
@@ -109,6 +113,7 @@ export default function Register() {
                                 onInput={inputHandler}
                                 validators={[VALIDATOR_EMAIL()]}
                                 errorText="Please enter a valid email address"
+                                showError={showValidationErrors}
                             />
                         </div>
                         <div className="mb-4">
@@ -123,6 +128,7 @@ export default function Register() {
                                 onInput={inputHandler}
                                 validators={[VALIDATOR_MINLENGTH(8)]}
                                 errorText="Password must be at least 8 characters long"
+                                showError={showValidationErrors}
                             />
                         </div>
                         <div className="mb-4">
@@ -136,6 +142,7 @@ export default function Register() {
                                 onInput={inputHandler}
                                 validators={[VALIDATOR_REQUIRE()]}
                                 errorText="Please enter a valid date of birth"
+                                showError={showValidationErrors}
                             />
                         </div>
                         <div>
@@ -144,6 +151,9 @@ export default function Register() {
                                 variant="primary"
                                 size="md"
                                 customClasses="w-full mt-3"
+                                onButtonClick={() =>
+                                    setShowValidationErrors(true)
+                                }
                             >
                                 Sign up
                             </Button>

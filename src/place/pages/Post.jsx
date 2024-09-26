@@ -6,42 +6,46 @@ import DescriptionCard from "../components/DescriptionCard";
 import PostedByCard from "../components/PostedByCard";
 import OptionsBar from "../components/OptionsBar";
 
-const Place = () => {
-    const place = useLoaderData();
+const Post = () => {
+    const post = useLoaderData(); // Ensure this is correctly fetching the post data
+
+    if (!post) {
+        return <p>Loading...</p>; // Handle loading state or error
+    }
 
     return (
         <PageWrapper>
-            <div className="">
+            <div>
                 {/* Title and Posting Details */}
                 <div className="mb-6">
                     <h1 className="text-2xl md:text-3xl font-bold mb-2">
-                        {place.title}
+                        {post.title}
                     </h1>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                         Posted on:{" "}
-                        {new Date(place.postDate).toLocaleDateString()} |
-                        Location: {place.location.address}, {place.country} |
+                        {new Date(post.postDate).toLocaleDateString()} |
+                        Location: {post.location.address}, {post.country} |
                         Visited on:{" "}
-                        {new Date(place.visitDate).toLocaleDateString()}
+                        {new Date(post.visitDate).toLocaleDateString()}
                     </p>
                 </div>
 
                 {/* Image Gallery */}
-                <ImageGallery images={place.images} />
+                <ImageGallery images={post.images} />
 
                 {/* Additional Information */}
                 <div className="flex flex-col md:flex-row gap-4">
                     <div className="w-full md:w-1/2 space-y-4">
                         <PostedByCard
-                            user={place.creator}
-                            taggedPeople={place.taggedPeople}
+                            user={post.creator}
+                            taggedPeople={post.taggedPeople}
                         />
-                        <DescriptionCard description={place.description} />
+                        <DescriptionCard description={post.description} />
                     </div>
 
                     {/* Map Section */}
                     <div className="w-full md:w-1/2">
-                        <LocationCard location={place.location} />
+                        <LocationCard location={post.location} />
                     </div>
                 </div>
 
@@ -51,4 +55,4 @@ const Place = () => {
     );
 };
 
-export default Place;
+export default Post;

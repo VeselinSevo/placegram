@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import PlaceMapItem from "./PlaceMapItem";
+import PostMapItem from "./PostMapItem";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 
-const PlacesMapView = ({ places }) => {
+const PlacesMapView = ({ posts }) => {
     const mapRef = useRef(); // Ref to the map container
 
     // Custom hook to fit map bounds
@@ -19,18 +19,18 @@ const PlacesMapView = ({ places }) => {
     };
 
     // Calculate map bounds
-    const calculateBounds = (places) => {
+    const calculateBounds = (posts) => {
         const bounds = L.latLngBounds();
-        places.forEach((place) => {
-            const { latitude, longitude } = place.location;
+        posts.forEach((post) => {
+            const { latitude, longitude } = post.location;
             bounds.extend([latitude, longitude]);
         });
         return bounds;
     };
 
     const bounds =
-        places.length > 0
-            ? calculateBounds(places)
+        posts.length > 0
+            ? calculateBounds(posts)
             : L.latLngBounds([
                   [-90, -180],
                   [90, 180],
@@ -59,16 +59,13 @@ const PlacesMapView = ({ places }) => {
             whenCreated={(mapInstance) => (mapRef.current = mapInstance)} // Store the map instance
         >
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            {places.map((place) => (
+            {posts.map((post) => (
                 <Marker
-                    key={place.id}
-                    position={[
-                        place.location.latitude,
-                        place.location.longitude,
-                    ]}
+                    key={post.id}
+                    position={[post.location.latitude, post.location.longitude]}
                 >
                     <Popup>
-                        <PlaceMapItem place={place} />
+                        <PostMapItem post={post} />
                     </Popup>
                 </Marker>
             ))}
