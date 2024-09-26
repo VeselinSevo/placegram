@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
     const navigate = useNavigate();
     const isLoggedIn = useSelector((state) => state.auth.value.isLoggedIn);
+    const [showValidationErrors, setShowValidationErrors] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -82,6 +83,7 @@ export default function Login() {
                                 ]}
                                 value={formState.inputs.email.value}
                                 onInput={inputHandler}
+                                showError={showValidationErrors} // Show error if validation fails
                             />
                         </div>
                         <div className="mb-4">
@@ -99,6 +101,7 @@ export default function Login() {
                                 ]}
                                 value={formState.inputs.password.value}
                                 onInput={inputHandler}
+                                showError={showValidationErrors} // Show error if validation fails
                             />
                         </div>
                         <div className="flex items-center justify-between mb-3 md:mb-4">
@@ -118,6 +121,9 @@ export default function Login() {
                                 size="md"
                                 customClasses="w-full mt-2"
                                 // disabled={!formState.isValid}
+                                onButtonClick={() => {
+                                    setShowValidationErrors(true);
+                                }}
                             >
                                 Sign in
                             </Button>

@@ -65,7 +65,7 @@ export default function SideDrawerNavLinks({ toggleMenu }) {
             {isLoggedIn && (
                 <li onClick={toggleMenu}>
                     <NavLink
-                        to="/places/new"
+                        to="/posts/new"
                         className={({ isActive }) =>
                             `block py-2 px-3 rounded ${
                                 isActive && "text-primary"

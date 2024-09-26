@@ -1,18 +1,17 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Places from "./place/pages/Places";
-import NewPlace from "./place/pages/NewPlace";
+import Posts from "./place/pages/Posts";
+import NewPost from "./place/pages/NewPost";
 import User from "./user/pages/User";
-import Place from "./place/pages/Place";
+import Post from "./place/pages/Post"; // Changed 'Place' to 'Post'
 import Login from "./auth/pages/Login/Login";
 import Register from "./auth/pages/Register/Register";
 import Layout from "./Layout";
 import AdminLayout from "./AdminLayout";
 import { useSelector } from "react-redux";
 
-const fetchPlace = async ({ params }) => {
-    // Sample placeData with tagged people
-    const placeData = {
+const fetchPost = async ({ params }) => {
+    const postData = {
         id: "1234567890",
         creator: {
             id: "1",
@@ -52,12 +51,12 @@ const fetchPlace = async ({ params }) => {
         ],
     };
 
-    return placeData;
+    return postData;
 };
 
 export default function App() {
-    const isLoggedIn = useSelector((state) => state.auth.value.isLoggedIn);
-    // const isLoggedIn = true;
+    let isLoggedIn = useSelector((state) => state.auth.value.isLoggedIn);
+    // isLoggedIn = true;
     let isAdmin = false;
 
     let routes = [];
@@ -66,17 +65,17 @@ export default function App() {
         routes = [
             {
                 path: "/",
-                element: <Layout />, // Use the Layout component
+                element: <Layout />,
                 children: [
-                    { path: "/", element: <Places /> },
-                    { path: "/places/new", element: <NewPlace /> },
+                    { path: "/", element: <Posts /> },
+                    { path: "/posts/new", element: <NewPost /> },
                     { path: "/user/:id", element: <User /> },
                     {
-                        path: "/place/:id",
-                        element: <Place />,
-                        loader: fetchPlace,
+                        path: "/post/:id",
+                        element: <Post />,
+                        loader: fetchPost,
                     },
-                    { path: "*", element: <Places /> },
+                    { path: "*", element: <Posts /> },
                 ],
             },
         ];
@@ -84,18 +83,18 @@ export default function App() {
         routes = [
             {
                 path: "/",
-                element: <Layout />, // Use the Layout component
+                element: <Layout />,
                 children: [
-                    { path: "/", element: <Places /> },
+                    { path: "/", element: <Posts /> },
                     { path: "/user/:id", element: <User /> },
                     {
-                        path: "/place/:id",
-                        element: <Place />,
-                        loader: fetchPlace,
+                        path: "/post/:id",
+                        element: <Post />,
+                        loader: fetchPost,
                     },
                     { path: "/login", element: <Login /> },
                     { path: "/register", element: <Register /> },
-                    { path: "*", element: <Places /> },
+                    { path: "*", element: <Posts /> },
                 ],
             },
         ];
@@ -105,7 +104,7 @@ export default function App() {
         routes = [
             {
                 path: "/admin",
-                element: <AdminLayout />, // Use the AdminLayout for admin routes
+                element: <AdminLayout />,
             },
         ];
     }

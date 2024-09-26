@@ -80,6 +80,10 @@ const Input = (props) => {
             />
         );
 
+    const showErrors =
+        (!inputState.isValid && inputState.isTouched) ||
+        (!inputState.isValid && props.showError);
+
     return (
         <div className="form-control">
             <label
@@ -89,9 +93,7 @@ const Input = (props) => {
                 {props.label}
             </label>
             {element}
-            {!inputState.isValid && inputState.isTouched && (
-                <ErrorMessage text={props.errorText} />
-            )}
+            {showErrors && <ErrorMessage text={props.errorText} />}
         </div>
     );
 };

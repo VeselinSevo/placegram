@@ -9,10 +9,10 @@ import Modal from "../../shared/components/Ui/Modal";
 import Options from "../../shared/components/Ui/Options";
 import Button from "../../shared/components/Ui/Button";
 
-export default function PlaceItem({ place, isOwner }) {
+export default function PostItem({ post, isOwner }) {
     const [showMenu, setShowMenu] = useState(false);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-    const postDate = new Date(place.postDate);
+    const postDate = new Date(post.postDate);
     const isRecent = Date.now() - postDate.getTime() < 24 * 60 * 60 * 1000;
 
     const displayDate = isRecent
@@ -20,7 +20,7 @@ export default function PlaceItem({ place, isOwner }) {
         : `${postDate.toLocaleDateString()}`;
 
     const handleEdit = () => {
-        console.log("Edit place:", place.id);
+        console.log("Edit post:", post.id);
         setShowMenu(false);
     };
 
@@ -30,13 +30,12 @@ export default function PlaceItem({ place, isOwner }) {
     };
 
     const confirmDelete = () => {
-        console.log("Deleting place:", place.id);
+        console.log("Deleting post:", post.id);
         setShowDeleteConfirmation(false);
-        // Implement actual delete logic here
     };
 
     const handleHide = () => {
-        console.log("Hide place:", place.id);
+        console.log("Hide post:", post.id);
         setShowMenu(false);
     };
 
@@ -52,8 +51,8 @@ export default function PlaceItem({ place, isOwner }) {
                 <div>
                     <img
                         className="object-cover w-full rounded-sm md:rounded-md"
-                        src={place.image}
-                        alt={place.title}
+                        src={post.image}
+                        alt={post.title}
                         style={{ height: "200px" }} // Fixed height for the image
                     />
 
@@ -72,7 +71,7 @@ export default function PlaceItem({ place, isOwner }) {
                 <div className="md:flex flex-col !rounded-none !md:rounded-lg flex-grow p-4 w-full justify-between hidden">
                     <div className="flex justify-between items-start">
                         <h5 className="mb-1 text-xl font-bold tracking-tight text-text dark:text-text-dark">
-                            {place.title}
+                            {post.title}
                         </h5>
                         {isOwner && (
                             <div className="relative">
@@ -86,14 +85,14 @@ export default function PlaceItem({ place, isOwner }) {
                         )}
                     </div>
                     <p className="mb-2 text-text dark:text-text-dark text-sm flex items-center">
-                        {place.country}
+                        {post.country}
 
                         <img
                             className="ml-2 h-4 w-6"
-                            src={`https://flagcdn.com/${place.country
+                            src={`https://flagcdn.com/${post.country
                                 .toLowerCase()
                                 .substring(0, 2)}.svg`}
-                            alt={`${place.country} flag`}
+                            alt={`${post.country} flag`}
                         />
                     </p>
                     <p className="text-text dark:text-text-dark text-sm flex items-center">
@@ -110,7 +109,7 @@ export default function PlaceItem({ place, isOwner }) {
                     disableHover
                 >
                     <p>
-                        Are you sure you want to delete this place? This action
+                        Are you sure you want to delete this post? This action
                         cannot be undone.
                     </p>
                     <div className="flex justify-end space-x-2">
