@@ -122,7 +122,7 @@ export default function PostsDisplay({ isOwner }) {
                     Map
                 </div>
             </div>
-            <hr className="border-hover dark:border-hover-dark"></hr>
+            <hr className="border-border dark:border-border-dark"></hr>
 
             <div className="w-full m-auto my-4 md:my-5 md:max-w-4xl">
                 {view === "grid" ? (

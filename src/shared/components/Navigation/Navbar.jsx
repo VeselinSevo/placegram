@@ -3,7 +3,7 @@ import Burger from "./Burger";
 import Logo from "./Logo";
 import NavLinks from "./NavLinks";
 import SideDrawer from "./SideDrawer";
-import Backdrop from "../Ui/Backdrop";
+import Backdrop from "../ui/Backdrop";
 
 const Navbar = forwardRef((props, ref) => {
     const [isOpen, setIsOpen] = useState(false);

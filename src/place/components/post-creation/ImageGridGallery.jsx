@@ -24,7 +24,7 @@ const getImageGridClasses = (imageCount) => {
     }
 };
 
-const ImageGallery = ({ images }) => {
+const ImageGridGallery = ({ images }) => {
     return (
         <div
             className={`grid ${getImageGridClasses(images.length)} gap-4 mb-6`}
@@ -49,4 +49,4 @@ const ImageGallery = ({ images }) => {
     );
 };
 
-export default ImageGallery;
+export default ImageGridGallery;

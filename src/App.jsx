@@ -4,13 +4,14 @@ import Posts from "./place/pages/Posts";
 import NewPost from "./place/pages/NewPost";
 import User from "./user/pages/User";
 import Post from "./place/pages/Post"; // Changed 'Place' to 'Post'
-import Login from "./auth/pages/Login/Login";
-import Register from "./auth/pages/Register/Register";
-import Layout from "./Layout";
-import AdminLayout from "./AdminLayout";
+import Login from "./auth/pages/Login";
+import Register from "./auth/pages/Register";
+import Layout from "./layout/Layout";
+import AdminLayout from "./layout/AdminLayout";
 import { useSelector } from "react-redux";
 
 const fetchPost = async ({ params }) => {
+    // To implement post fetching by id
     const postData = {
         id: "1234567890",
         creator: {
@@ -37,6 +38,11 @@ const fetchPost = async ({ params }) => {
         country: "USA",
         visitDate: "2024-08-13T18:30:00Z",
         postDate: "2024-08-14T10:00:00Z",
+        tags: [
+            { name: "Nature", iconLocation: "NatureIcon" },
+            { name: "Urban", iconLocation: "UrbanIcon" },
+            { name: "Adventure", iconLocation: "AdventureIcon" },
+        ],
         taggedPeople: [
             {
                 id: "2",

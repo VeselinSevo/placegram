@@ -1,18 +1,18 @@
 import { useState, useEffect, useCallback } from "react";
-import useForm from "../../../shared/hooks/useForm";
+import useForm from "../../shared/hooks/useForm";
 import {
     VALIDATOR_REQUIRE,
     VALIDATOR_EMAIL,
     VALIDATOR_MINLENGTH,
-} from "../../../shared/util/validators";
-import PageWrapper from "../../../shared/components/Ui/PageWrapper";
-import Button from "../../../shared/components/Ui/Button";
-import Card from "../../../shared/components/Ui/Card";
-import googleLogo from "../../../assets/auth/google-logo.svg";
-import Input from "../../../shared/components/Ui/Input"; // Import custom Input
-import Label from "../../../shared/components/Ui/Label"; // Import custom Label
+} from "../../shared/util/validators";
+import PageWrapper from "../../shared/components/Ui/PageWrapper";
+import Button from "../../shared/components/Ui/Button";
+import Card from "../../shared/components/Ui/Card";
+import googleLogo from "../../assets/icons/auth-icons/google-logo.svg";
+import Input from "../../shared/components/Ui/Input"; // Import custom Input
+import Label from "../../shared/components/Ui/Label"; // Import custom Label
 import { useSelector, useDispatch } from "react-redux";
-import { login } from "../../authSlice";
+import { login } from "../authSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -61,7 +61,7 @@ export default function Login() {
         <PageWrapper>
             <Card
                 disableHover
-                customClasses="flex justify-center items-center bg-bg dark:bg-bg-dark !md:border !md:border-hover !dark:md:border !dark:md:border-hover-dark md:max-w-md dark:bg-transparent bg-transparent"
+                customClasses="flex justify-center items-center bg-bg dark:bg-bg-dark !md:border !md:border-border !dark:md:border !dark:md:border-border-dark md:max-w-md dark:bg-transparent bg-transparent"
             >
                 <div className="w-full p-8">
                     <h2 className="md:text-2xl text-xl mb-4 font-bold text-text dark:text-text-dark text-center">
@@ -131,11 +131,11 @@ export default function Login() {
                     </form>
                     <div className="">
                         <div className="flex justify-between items-center">
-                            <hr className="w-full border-gray-300 dark:border-gray-600" />
+                            <hr className="w-full border-border dark:border-border-dark" />
                             <span className="my-6 px-3 text-sm text-nowrap text-text dark:text-text-dark">
                                 Or continue with
                             </span>
-                            <hr className="w-full border-gray-300 dark:border-gray-600" />
+                            <hr className="w-full border-border dark:border-border-dark" />
                         </div>
                         <div className="flex justify-between items-center space-x-4">
                             <Card customClasses="flex-1 flex justify-center items-center p-2 cursor-pointer rounded-lg">

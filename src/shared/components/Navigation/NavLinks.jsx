@@ -8,7 +8,7 @@ import {
     faCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
-import Avatar from "../Ui/Avatar";
+import Avatar from "../ui/Avatar";
 
 export default function NavLinks() {
     const isLoggedIn = useSelector((state) => state.auth.value.isLoggedIn);

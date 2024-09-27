@@ -7,7 +7,7 @@ import {
     faHouse,
     faCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
-import Avatar from "../Ui/Avatar";
+import Avatar from "../ui/Avatar";
 import { useSelector } from "react-redux";
 /* eslint-disable react/prop-types */
 export default function SideDrawerNavLinks({ toggleMenu }) {

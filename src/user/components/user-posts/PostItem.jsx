@@ -2,12 +2,12 @@
 
 import React, { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
-import Card from "../../shared/components/Ui/Card";
+import Card from "../../../shared/components/ui/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
-import Modal from "../../shared/components/Ui/Modal";
-import Options from "../../shared/components/Ui/Options";
-import Button from "../../shared/components/Ui/Button";
+import Modal from "../../../shared/components/ui/Modal";
+import OptionsModal from "../../../shared/components/ui/OptionsModal";
+import Button from "../../../shared/components/ui/Button";
 
 export default function PostItem({ post, isOwner }) {
     const [showMenu, setShowMenu] = useState(false);
@@ -101,7 +101,10 @@ export default function PostItem({ post, isOwner }) {
                 </div>
             </Card>
             {showMenu && (
-                <Options options={OPTIONS} onClose={() => setShowMenu(false)} />
+                <OptionsModal
+                    options={OPTIONS}
+                    onClose={() => setShowMenu(false)}
+                />
             )}
             {showDeleteConfirmation && (
                 <Modal

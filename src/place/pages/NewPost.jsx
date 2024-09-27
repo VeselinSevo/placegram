@@ -7,19 +7,18 @@ import {
 import { useForm } from "../../shared/hooks/useForm";
 import { useHttpClient } from "../../shared/hooks/useHttpClient";
 import { useSelector } from "react-redux";
-import Input from "../../shared/components/Ui/Input";
-import Button from "../../shared/components/Ui/Button";
-import Label from "../../shared/components/Ui/Label";
-import PageWrapper from "../../shared/components/Ui/PageWrapper";
-import Card from "../../shared/components/Ui/Card";
-import ProgressBar from "../../shared/components/Ui/ProgressBar";
-import ImageUpload from "../../shared/components/Ui/ImageUpload";
-import UserTagInput from "../../shared/components/Ui/UserTagInput";
-import MapPicker from "../../shared/components/Ui/MapPicker";
-import CornerPopup from "../../shared/components/Ui/CornerPopup";
-import StepIndicator from "../../shared/components/Ui/StepIndicator";
-import TagSelector from "../../shared/components/Ui/TagSelector";
-import icons from "../../shared/util/importIcons"; // Adjust the path as necessary
+import Input from "../../shared/components/ui/Input";
+import Button from "../../shared/components/ui/Button";
+import Label from "../../shared/components/ui/Label";
+import PageWrapper from "../../shared/components/ui/PageWrapper";
+import Card from "../../shared/components/ui/Card";
+import ProgressBar from "../../shared/components/ui/ProgressBar";
+import ImageUpload from "../components/post-creation/ImageUpload";
+import UserTagInput from "../components/post-creation/UserTagInput";
+import MapPicker from "../../shared/components/ui/MapPicker";
+import CornerPopup from "../../shared/components/ui/CornerPopup";
+import StepIndicator from "../components/post-creation/StepIndicator";
+import TagSelector from "../components/post-creation/TagSelector";
 
 const NewPost = () => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -66,23 +65,6 @@ const NewPost = () => {
         },
         false
     );
-
-    const generalTags = [
-        { id: 1, label: "Hiking", icon: icons.HikingIcon },
-        { id: 2, label: "Beach", icon: icons.BeachIcon },
-        { id: 3, label: "Urban", icon: icons.UrbanIcon },
-        { id: 4, label: "Mountain", icon: icons.MountainIcon },
-        { id: 5, label: "Adventure", icon: icons.AdventureIcon },
-        { id: 6, label: "Camping", icon: icons.CampingIcon },
-        { id: 7, label: "Travel", icon: icons.TravelIcon },
-        { id: 8, label: "Nature", icon: icons.NatureIcon },
-        { id: 9, label: "Photo", icon: icons.PhotographyIcon },
-        { id: 10, label: "Fitness", icon: icons.FitnessIcon },
-        { id: 11, label: "Food", icon: icons.FoodIcon },
-        { id: 12, label: "Music", icon: icons.MusicIcon },
-        { id: 13, label: "Art", icon: icons.ArtIcon },
-        { id: 14, label: "Sports", icon: icons.SportsIcon },
-    ];
 
     useEffect(() => {
         if (showErrorMessage) {
@@ -165,20 +147,34 @@ const NewPost = () => {
                 JSON.stringify(formState2.inputs.tagPeople.value) // Updated to tagPeople
             );
             formData.append(
-                "exactLocation",
-                JSON.stringify(formState2.inputs.location.value)
-            );
-            formData.append(
-                "generalTags",
+                "tags",
                 JSON.stringify(formState3.inputs.generalTags.value)
-            ); // Append general tags
-            formData.append("creator", auth.userId);
+            );
+            // formData.append("creator", auth.userId);
 
             const { images, primaryIndex } = formState4.inputs.pictures.value;
             images.forEach((image) => {
                 formData.append("pictures", image);
             });
             formData.append("primaryPictureIndex", primaryIndex);
+
+            const address = formState2.inputs.location.value.address; // Assuming this is where the address is stored
+            const addressParts = address.split(","); // Split the address by commas
+            const country = addressParts[addressParts.length - 1].trim(); // Get the last part and trim whitespace
+
+            const location = {
+                ...formState2.inputs.location.value,
+                country: country,
+            };
+            console.log(location);
+
+            formData.append("location", JSON.stringify(location));
+            // Log formData contents
+            const formDataObject = {};
+            formData.forEach((value, key) => {
+                formDataObject[key] = value;
+            });
+            console.log("Form Data:", formDataObject); // Log the form data as an object
 
             await sendRequest(
                 "http://localhost:5000/api/posts",
@@ -211,7 +207,7 @@ const NewPost = () => {
                 <div className="w-full md:w-3/4">
                     <Card
                         disableHover
-                        customClasses="flex flex-col justify-center items-center bg-bg dark:bg-bg-dark !md:border !md:border-hover !dark:md:border !dark:md:border-hover-dark md:max-w-5xl dark:bg-transparent bg-transparent"
+                        customClasses="flex flex-col justify-center items-center bg-bg dark:bg-bg-dark !md:border !md:border-border !dark:md:border !dark:md:border-border-dark md:max-w-5xl dark:bg-transparent bg-transparent"
                     >
                         <div className="w-full p-4 md:p-8 space-y-6 md:space-y-8">
                             <form onSubmit={postSubmitHandler}>
@@ -356,7 +352,6 @@ const NewPost = () => {
                                         />
                                         <TagSelector
                                             id="tags"
-                                            tags={generalTags}
                                             onTagsChange={
                                                 handleGeneralTagsChange
                                             }

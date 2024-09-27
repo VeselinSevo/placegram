@@ -3,7 +3,7 @@ import Modal from "./Modal";
 import Option from "./Option";
 import { disableBodyScroll, enableBodyScroll } from "../../util/bodyScroll";
 
-export default function Options({ options, onClose }) {
+export default function OptionsModal({ options, onClose }) {
     useEffect(() => {
         disableBodyScroll();
         return () => enableBodyScroll();

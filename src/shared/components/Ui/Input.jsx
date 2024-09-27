@@ -59,7 +59,7 @@ const Input = (props) => {
                 onChange={changeHandler}
                 onBlur={touchHandler}
                 value={inputState.value}
-                className={`text-sm md:text-base mt-1 block w-full px-3 py-2 bg-bg dark:bg-bg-dark border text-text dark:text-text-dark border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm ${
+                className={`text-sm md:text-base mt-1 block w-full px-3 py-2 bg-bg dark:bg-bg-dark border text-text dark:text-text-dark border-border dark:border-border-dark rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm ${
                     !inputState.isValid && inputState.isTouched
                         ? "border-red-500 dark:border-red-500"
                         : ""
@@ -72,7 +72,7 @@ const Input = (props) => {
                 onChange={changeHandler}
                 onBlur={touchHandler}
                 value={inputState.value}
-                className={`text-sm md:text-base mt-1 block w-full px-3 py-2 bg-bg dark:bg-bg-dark border text-text dark:text-text-dark border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm ${
+                className={`text-sm md:text-base mt-1 block w-full px-3 py-2 bg-bg dark:bg-bg-dark border text-text dark:text-text-dark border-border dark:border-border-dark rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm ${
                     !inputState.isValid && inputState.isTouched
                         ? "border-red-500 dark:border-red-500"
                         : ""

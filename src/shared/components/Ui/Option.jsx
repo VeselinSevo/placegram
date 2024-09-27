@@ -9,7 +9,7 @@ export default function MoreOptionsOption({ optionText, isLast, onClick }) {
             </div>
             {/* Conditionally render the hr only if it's not the last option */}
             {!isLast && (
-                <hr className="border-hover dark:border-hover-dark"></hr>
+                <hr className="border-border dark:border-border-dark"></hr>
             )}
         </div>
     );

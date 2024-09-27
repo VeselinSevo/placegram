@@ -1,12 +1,12 @@
 // components/PostedBy.js
 import React from "react";
 import { Link } from "react-router-dom";
-import Avatar from "../../shared/components/Ui/Avatar";
-import Card from "../../shared/components/Ui/Card";
+import Avatar from "../../shared/components/ui/Avatar";
+import Card from "../../shared/components/ui/Card";
 
 const PostedByCard = ({ user, taggedPeople }) => {
     return (
-        <Card customClasses="p-4 bg-bg dark:bg-bg-dark border border-hover dark:border-hover-dark shadow-md rounded-lg">
+        <Card customClasses="p-4 bg-bg dark:bg-bg-dark shadow-md rounded-lg">
             <h2 className="text-lg md:text-xl font-semibold mb-4">Posted By</h2>
             <div className="flex items-center gap-4 mb-4">
                 <Link to={"/user/" + user.id}>

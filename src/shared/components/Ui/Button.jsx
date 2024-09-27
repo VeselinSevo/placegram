@@ -26,7 +26,7 @@ export default function Button({
         outline: `border ${
             disabled
                 ? "border-gray-200 text-gray-300 cursor-not-allowed"
-                : "border-hover dark:border-hover-dark text-text dark:text-text-dark hover:bg-hover dark:hover:bg-hover-dark focus:ring-gray-300 cursor-pointer"
+                : "border-border dark:border-border-dark text-text dark:text-text-dark hover:bg-hover dark:hover:bg-hover-dark focus:ring-gray-300 cursor-pointer"
         }`,
         danger: `bg-red-600 text-white ${
             disabled

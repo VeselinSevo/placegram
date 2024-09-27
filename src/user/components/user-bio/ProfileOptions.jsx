@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import Button from "../../../shared/components/Ui/Button";
-import Options from "../../../shared/components/Ui/Options";
+import Button from "../../../shared/components/ui/Button";
+import OptionsModal from "../../../shared/components/ui/OptionsModal";
 
 export default function ProfileOptions() {
     const [areOptionsOpen, setAreOptionsOpen] = useState(false);
@@ -29,7 +29,7 @@ export default function ProfileOptions() {
                 />
             </div>
             {areOptionsOpen && (
-                <Options
+                <OptionsModal
                     options={OPTIONS}
                     onClose={() => setAreOptionsOpen(false)}
                 />

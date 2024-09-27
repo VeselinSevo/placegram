@@ -1,6 +1,6 @@
-import PageWrapper from "../../shared/components/Ui/PageWrapper";
-import ProfileBio from "../components/ProfileBio/ProfileBio";
-import PostsDisplay from "../components/PostsDisplay";
+import PageWrapper from "../../shared/components/ui/PageWrapper";
+import ProfileBio from "../components/user-bio/ProfileBio";
+import PostsDisplay from "../components/user-posts/PostsDisplay";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 

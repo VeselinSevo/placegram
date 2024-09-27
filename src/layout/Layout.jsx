@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import Navbar from "./shared/components/Navigation/Navbar";
-import Footer from "./shared/components/Footer/Footer";
-import useDynamicHeight from "./shared/hooks/useDynamicHeight";
+import Navbar from "../shared/components/navigation/Navbar";
+import Footer from "../shared/components/footer/Footer";
+import useDynamicHeight from "../shared/hooks/useDynamicHeight";
 
 export default function Layout() {
     const { height, navbarRef, footerRef } = useDynamicHeight();

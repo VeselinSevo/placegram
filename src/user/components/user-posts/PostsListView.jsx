@@ -1,5 +1,5 @@
 import PostItem from "./PostItem";
-import Card from "../../shared/components/Ui/Card";
+import Card from "../../../shared/components/ui/Card";
 
 export default function PlacesListView(props) {
     return (

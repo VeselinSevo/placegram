@@ -19,6 +19,10 @@ export default {
                 // Hover colors
                 hover: "rgb(243 244 246)", // gray-100
                 "hover-dark": "rgb(55 65 81)", // gray-700
+
+                // Hover colors
+                border: "rgb(209 213 219)", // gray-100
+                "border-dark": "rgb(75 85 99)", // gray-700
             },
             keyframes: {
                 slideIn: {

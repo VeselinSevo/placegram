@@ -39,7 +39,7 @@ const ImageUpload = ({ onInput, id, value, isValid, showError }) => {
                 className={`p-6 border-2 border-dashed rounded-lg text-center cursor-pointer ${
                     isDragActive
                         ? "border-primary bg-primary bg-opacity-10"
-                        : "border-gray-300"
+                        : "border-border"
                 }`}
             >
                 <input {...getInputProps()} />

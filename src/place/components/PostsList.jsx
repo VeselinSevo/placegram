@@ -1,5 +1,5 @@
 import PostItem from "./PostItem";
-import Card from "../../shared/components/Ui/Card";
+import Card from "../../shared/components/ui/Card";
 
 export default function PostsList() {
     const POSTS = [
@@ -26,6 +26,13 @@ export default function PostsList() {
             description:
                 "Witnessed an amazing sunset at the Grand Canyon. The view was breathtaking, with the colors of the sky reflecting off the canyon walls.",
             country: "USA",
+            tags: [
+                { name: "Nature", iconLocation: "NatureIcon" },
+                { name: "Urban", iconLocation: "UrbanIcon" },
+                { name: "Adventure", iconLocation: "AdventureIcon" },
+                { name: "Urban", iconLocation: "UrbanIcon" },
+                { name: "Adventure", iconLocation: "AdventureIcon" },
+            ],
             visitDate: "2024-08-13T18:30:00Z",
             postDate: "2024-08-14T10:00:00Z",
         },
@@ -52,6 +59,11 @@ export default function PostsList() {
             description:
                 "The Eiffel Tower lit up at night is a sight to behold. The lights sparkle every hour, making it a magical experience.",
             country: "France",
+            tags: [
+                { name: "Nature", iconLocation: "NatureIcon" },
+                { name: "Urban", iconLocation: "UrbanIcon" },
+                { name: "Adventure", iconLocation: "AdventureIcon" },
+            ],
             visitDate: "2024-07-22T21:00:00Z",
             postDate: "2024-07-23T09:00:00Z",
         },
@@ -78,6 +90,11 @@ export default function PostsList() {
             description:
                 "Spent a day hiking in the Swiss Alps. The scenery was stunning, with snow-capped peaks and lush green valleys.",
             country: "Switzerland",
+            tags: [
+                { name: "Nature", iconLocation: "NatureIcon" },
+                { name: "Urban", iconLocation: "UrbanIcon" },
+                { name: "Adventure", iconLocation: "AdventureIcon" },
+            ],
             visitDate: "2024-06-15T10:00:00Z",
             postDate: "2024-06-16T08:00:00Z",
         },
@@ -104,6 +121,11 @@ export default function PostsList() {
             description:
                 "Walked along the Great Wall of China. The sheer scale and history of the wall are awe-inspiring.",
             country: "China",
+            tags: [
+                { name: "Nature", iconLocation: "NatureIcon" },
+                { name: "Urban", iconLocation: "UrbanIcon" },
+                { name: "Adventure", iconLocation: "AdventureIcon" },
+            ],
             visitDate: "2024-05-05T14:00:00Z",
             postDate: "2024-05-06T11:00:00Z",
         },
@@ -130,6 +152,11 @@ export default function PostsList() {
             description:
                 "Had an unforgettable safari experience in Serengeti National Park. Saw lions, elephants, and a beautiful sunset over the savannah.",
             country: "Tanzania",
+            tags: [
+                { name: "Nature", iconLocation: "NatureIcon" },
+                { name: "Urban", iconLocation: "UrbanIcon" },
+                { name: "Adventure", iconLocation: "AdventureIcon" },
+            ],
             visitDate: "2024-04-10T16:00:00Z",
             postDate: "2024-04-11T10:00:00Z",
         },

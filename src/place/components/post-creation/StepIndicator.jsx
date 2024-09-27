@@ -20,7 +20,7 @@ const StepIndicator = ({ steps, currentStep, isStepValid, onStepClick }) => {
                                     ? "bg-primary text-text-dark"
                                     : isCompleted
                                     ? "bg-hover dark:bg-hover-dark text-text dark:text-text-dark"
-                                    : "bg-transparent text-text dark:text-text-dark border-2 border-hover"
+                                    : "bg-transparent text-text dark:text-text-dark border-2 border-border"
                             }`}
                         >
                             <span className="mr-3">{stepName}</span>

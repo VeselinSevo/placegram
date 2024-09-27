@@ -5,11 +5,11 @@ import {
     faFlag,
     faBookmark,
 } from "@fortawesome/free-solid-svg-icons";
-import Button from "../../shared/components/Ui/Button";
+import Button from "../../shared/components/ui/Button";
 
 const OptionsBar = () => {
     return (
-        <div className="flex justify-between items-center py-4 border-t border-hover dark:border-hover-dark rounded-t-sm mt-8">
+        <div className="flex justify-between items-center py-4 border-t border-border dark:border-border-dark rounded-t-sm mt-8">
             {/* Report Button */}
             <Button
                 variant="outline"

@@ -1,10 +1,12 @@
 import { useLoaderData } from "react-router-dom";
-import PageWrapper from "../../shared/components/Ui/PageWrapper";
-import ImageGallery from "../../shared/components/Ui/ImageGridGallery";
+import PageWrapper from "../../shared/components/ui/PageWrapper";
+import ImageGridGallery from "../components/post-creation/ImageGridGallery";
 import LocationCard from "../components/LocationCard";
 import DescriptionCard from "../components/DescriptionCard";
 import PostedByCard from "../components/PostedByCard";
 import OptionsBar from "../components/OptionsBar";
+
+import TagDisplay from "../../shared/components/ui/TagDisplay";
 
 const Post = () => {
     const post = useLoaderData(); // Ensure this is correctly fetching the post data
@@ -28,10 +30,13 @@ const Post = () => {
                         Visited on:{" "}
                         {new Date(post.visitDate).toLocaleDateString()}
                     </p>
+                    <div className="pt-4 md:mt-0">
+                        <TagDisplay tags={post.tags}></TagDisplay>
+                    </div>
                 </div>
 
                 {/* Image Gallery */}
-                <ImageGallery images={post.images} />
+                <ImageGridGallery images={post.images} />
 
                 {/* Additional Information */}
                 <div className="flex flex-col md:flex-row gap-4">

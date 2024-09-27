@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import OptionsBar from "./OptionsBar";
-import Map from "../../shared/components/Ui/Map";
-import Avatar from "../../shared/components/Ui/Avatar";
-import Card from "../../shared/components/Ui/Card";
-import Carousel from "../../shared/components/Ui/Carousel";
-import Button from "../../shared/components/Ui/Button";
-import Modal from "../../shared/components/Ui/Modal";
+import Map from "../../shared/components/ui/Map";
+import Avatar from "../../shared/components/ui/Avatar";
+import Card from "../../shared/components/ui/Card";
+import Carousel from "../../shared/components/ui/Carousel";
+import Button from "../../shared/components/ui/Button";
+import Modal from "../../shared/components/ui/Modal";
 import { Link } from "react-router-dom";
+import TagDisplay from "../../shared/components/ui/TagDisplay";
 
 export default function PostItem({ post }) {
     const postDate = new Date(post.postDate);
@@ -24,6 +25,7 @@ export default function PostItem({ post }) {
     }
 
     function openModal() {
+        console.log("sasaa");
         setisModalOpen(true);
     }
 
@@ -83,12 +85,18 @@ export default function PostItem({ post }) {
                         <Button
                             variant="secondary"
                             customClasses={"w-1/3 text-sm"}
-                            onClick={openModal}
+                            onButtonClick={openModal}
                         >
                             See on the map
                         </Button>
                     </div>
                 </div>
+                {/* Render Tags with Icons */}
+                {/* Use the TagDisplay component */}
+                <div className="mt-7 md:mt-0 px-4">
+                    <TagDisplay tags={post.tags} />
+                </div>
+
                 <div className="px-2 md:px-2">
                     <OptionsBar></OptionsBar>
                 </div>
