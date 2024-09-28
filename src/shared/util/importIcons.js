@@ -10,8 +10,7 @@ const importAllIcons = () => {
             .split("/")
             .pop()
             .replace(/\.(png|svg)$/, ""); // Get the file name without extension
-        iconMap[iconName.charAt(0).toUpperCase() + iconName.slice(1) + "Icon"] =
-            icons[path].default; // Capitalize and append 'Icon'
+        iconMap[iconName] = icons[path].default; // Capitalize and append 'Icon'
     }
 
     return iconMap;

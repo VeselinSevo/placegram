@@ -17,8 +17,8 @@ export default function OptionsModal({ options, onClose }) {
                     optionText={option.text}
                     onClick={() => {
                         option.onClick();
-                        onClose();
                     }}
+                    style={option.style}
                     isLast={index === options.length - 1}
                 />
             ))}

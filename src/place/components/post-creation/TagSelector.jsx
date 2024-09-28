@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import icons from "../../../shared/util/importIcons"; // Adjust the path as necessary
 
 const tags = [
-    { id: 1, label: "Hiking", icon: icons.HikingIcon },
-    { id: 2, label: "Beach", icon: icons.BeachIcon },
-    { id: 3, label: "Urban", icon: icons.UrbanIcon },
-    { id: 4, label: "Mountain", icon: icons.MountainIcon },
-    { id: 5, label: "Adventure", icon: icons.AdventureIcon },
-    { id: 6, label: "Camping", icon: icons.CampingIcon },
-    { id: 7, label: "Travel", icon: icons.TravelIcon },
-    { id: 8, label: "Nature", icon: icons.NatureIcon },
-    { id: 9, label: "Photo", icon: icons.PhotographyIcon },
-    { id: 10, label: "Fitness", icon: icons.FitnessIcon },
-    { id: 11, label: "Food", icon: icons.FoodIcon },
-    { id: 12, label: "Music", icon: icons.MusicIcon },
-    { id: 13, label: "Art", icon: icons.ArtIcon },
-    { id: 14, label: "Sports", icon: icons.SportsIcon },
+    { id: 1, name: "Hiking", icon: "hiking" },
+    { id: 2, name: "Beach", icon: "beach" },
+    { id: 3, name: "Urban", icon: "urban" },
+    { id: 4, name: "Mountain", icon: "mountain" },
+    { id: 5, name: "Adventure", icon: "advanture" },
+    { id: 6, name: "Camping", icon: "camping" },
+    { id: 7, name: "Travel", icon: "travel" },
+    { id: 8, name: "Nature", icon: "nature" },
+    { id: 9, name: "Photo", icon: "photography" },
+    { id: 10, name: "Fitness", icon: "fitness" },
+    { id: 11, name: "Food", icon: "food" },
+    { id: 12, name: "Music", icon: "music" },
+    { id: 13, name: "Art", icon: "art" },
+    { id: 14, name: "Sports", icon: "sports" },
 ];
 
 const TagSelector = ({ onTagsChange }) => {
@@ -49,7 +49,7 @@ const TagSelector = ({ onTagsChange }) => {
                         }`}
                     >
                         <span className="mr-3">{tag.label}</span>
-                        <img src={tag.icon} alt={tag.label} />
+                        <img src={icons[tag.icon]} alt={tag.label} />
                     </div>
                 ))}
             </div>

@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from "date-fns";
 
 export default function PostMapItem({ post }) {
-    const postDate = new Date(post.postDate);
+    const postDate = new Date(post.createdAt);
     const isRecent = Date.now() - postDate.getTime() < 24 * 60 * 60 * 1000;
 
     const displayDate = isRecent
@@ -12,7 +12,7 @@ export default function PostMapItem({ post }) {
         <div>
             <img
                 className="object-cover w-full rounded-sm md:rounded-md"
-                src={post.image}
+                src={post.images[0]}
                 alt={post.title}
                 style={{ height: "200px" }}
             />

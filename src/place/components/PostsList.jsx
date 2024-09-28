@@ -1,171 +1,42 @@
 import PostItem from "./PostItem";
 import Card from "../../shared/components/ui/Card";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function PostsList() {
-    const POSTS = [
-        {
-            id: "1234567890",
-            creator: {
-                id: "1",
-                username: "john_doe",
-                profilePicture: "/users/profile-images/user1.jpg",
-            },
-            title: "Sunset at Grand Canyon",
-            location: {
-                latitude: 36.1069652,
-                longitude: -112.1129972,
-                address: "Grand Canyon, Arizona, USA",
-            },
-            image: "/places/thumbnail-images/place1.webp",
-            images: [
-                "/places/thumbnail-images/place1.webp",
-                "/places/thumbnail-images/place2.jpg",
-                "/places/thumbnail-images/place1.webp",
-                "/places/thumbnail-images/place1.webp",
-            ],
-            description:
-                "Witnessed an amazing sunset at the Grand Canyon. The view was breathtaking, with the colors of the sky reflecting off the canyon walls.",
-            country: "USA",
-            tags: [
-                { name: "Nature", iconLocation: "NatureIcon" },
-                { name: "Urban", iconLocation: "UrbanIcon" },
-                { name: "Adventure", iconLocation: "AdventureIcon" },
-                { name: "Urban", iconLocation: "UrbanIcon" },
-                { name: "Adventure", iconLocation: "AdventureIcon" },
-            ],
-            visitDate: "2024-08-13T18:30:00Z",
-            postDate: "2024-08-14T10:00:00Z",
-        },
-        {
-            id: "2345678901",
-            creator: {
-                id: "2",
-                username: "john_doe",
-                profilePicture: "/users/profile-images/user1.jpg",
-            },
-            title: "Eiffel Tower at Night",
-            location: {
-                latitude: 48.8583701,
-                longitude: 2.2944813,
-                address: "Eiffel Tower, Paris, France",
-            },
-            image: "/places/thumbnail-images/place2.jpg",
-            images: [
-                "/places/thumbnail-images/place1.webp",
-                "/places/thumbnail-images/place1.webp",
-                "/places/thumbnail-images/place1.webp",
-                "/places/thumbnail-images/place1.webp",
-            ],
-            description:
-                "The Eiffel Tower lit up at night is a sight to behold. The lights sparkle every hour, making it a magical experience.",
-            country: "France",
-            tags: [
-                { name: "Nature", iconLocation: "NatureIcon" },
-                { name: "Urban", iconLocation: "UrbanIcon" },
-                { name: "Adventure", iconLocation: "AdventureIcon" },
-            ],
-            visitDate: "2024-07-22T21:00:00Z",
-            postDate: "2024-07-23T09:00:00Z",
-        },
-        {
-            id: "3456789012",
-            creator: {
-                id: "3",
-                username: "john_doe",
-                profilePicture: "/users/profile-images/user1.jpg",
-            },
-            title: "Hiking in the Swiss Alps",
-            location: {
-                latitude: 46.577694,
-                longitude: 8.027008,
-                address: "Swiss Alps, Switzerland",
-            },
-            image: "/places/thumbnail-images/place1.webp",
-            images: [
-                "/places/thumbnail-images/place1.webp",
-                "/places/thumbnail-images/place1.webp",
-                "/places/thumbnail-images/place1.webp",
-                "/places/thumbnail-images/place1.webp",
-            ],
-            description:
-                "Spent a day hiking in the Swiss Alps. The scenery was stunning, with snow-capped peaks and lush green valleys.",
-            country: "Switzerland",
-            tags: [
-                { name: "Nature", iconLocation: "NatureIcon" },
-                { name: "Urban", iconLocation: "UrbanIcon" },
-                { name: "Adventure", iconLocation: "AdventureIcon" },
-            ],
-            visitDate: "2024-06-15T10:00:00Z",
-            postDate: "2024-06-16T08:00:00Z",
-        },
-        {
-            id: "4567890123",
-            creator: {
-                id: "4",
-                username: "john_doe",
-                profilePicture: "/users/profile-images/user1.jpg",
-            },
-            title: "Exploring the Great Wall of China",
-            location: {
-                latitude: 40.4319077,
-                longitude: 116.5703749,
-                address: "Great Wall of China, Beijing, China",
-            },
-            image: "/places/thumbnail-images/place1.webp",
-            images: [
-                "/places/thumbnail-images/place1.webp",
-                "/places/thumbnail-images/place1.webp",
-                "/places/thumbnail-images/place1.webp",
-                "/places/thumbnail-images/place1.webp",
-            ],
-            description:
-                "Walked along the Great Wall of China. The sheer scale and history of the wall are awe-inspiring.",
-            country: "China",
-            tags: [
-                { name: "Nature", iconLocation: "NatureIcon" },
-                { name: "Urban", iconLocation: "UrbanIcon" },
-                { name: "Adventure", iconLocation: "AdventureIcon" },
-            ],
-            visitDate: "2024-05-05T14:00:00Z",
-            postDate: "2024-05-06T11:00:00Z",
-        },
-        {
-            id: "5678901234",
-            creator: {
-                id: "5",
-                username: "john_doe",
-                profilePicture: "/users/profile-images/user1.jpg",
-            },
-            title: "Safari in Serengeti National Park",
-            location: {
-                latitude: -2.333333,
-                longitude: 34.833333,
-                address: "Serengeti National Park, Tanzania",
-            },
-            image: "/places/thumbnail-images/place1.webp",
-            images: [
-                "/places/thumbnail-images/place1.webp",
-                "/places/thumbnail-images/place1.webp",
-                "/places/thumbnail-images/place1.webp",
-                "/places/thumbnail-images/place1.webp",
-            ],
-            description:
-                "Had an unforgettable safari experience in Serengeti National Park. Saw lions, elephants, and a beautiful sunset over the savannah.",
-            country: "Tanzania",
-            tags: [
-                { name: "Nature", iconLocation: "NatureIcon" },
-                { name: "Urban", iconLocation: "UrbanIcon" },
-                { name: "Adventure", iconLocation: "AdventureIcon" },
-            ],
-            visitDate: "2024-04-10T16:00:00Z",
-            postDate: "2024-04-11T10:00:00Z",
-        },
-    ];
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await axios.get(
+                    "http://localhost:3000/api/posts"
+                ); // Adjust the URL based on your backend route
+                setPosts(response.data.posts);
+            } catch (err) {
+                setError("Failed to fetch posts.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPosts();
+    }, []);
+
+    if (loading) {
+        return <p>Loading posts...</p>;
+    }
+
+    if (error) {
+        return <p>{error}</p>;
+    }
 
     return (
         <div className="flex flex-col justify-center place-items-center gap-8 md:gap-8">
-            {POSTS.length > 0 ? (
-                POSTS.map((post) => <PostItem post={post} key={post.id} />)
+            {posts.length > 0 ? (
+                posts.map((post) => <PostItem post={post} key={post.id} />)
             ) : (
                 <Card>
                     <div className="flex flex-col items-center justify-center p-3">

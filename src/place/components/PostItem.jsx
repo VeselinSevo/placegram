@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import TagDisplay from "../../shared/components/ui/TagDisplay";
 
 export default function PostItem({ post }) {
-    const postDate = new Date(post.postDate);
+    const postDate = new Date(post.createdAt);
     const isRecent = Date.now() - postDate.getTime() < 24 * 60 * 60 * 1000;
 
     const displayDate = isRecent
@@ -29,6 +29,8 @@ export default function PostItem({ post }) {
         setisModalOpen(true);
     }
 
+    console.log(post);
+
     return (
         <>
             {isModalOpen && (
@@ -45,7 +47,7 @@ export default function PostItem({ post }) {
                 <div className="flex flex-col overflow-hidden w-full md:flex-row">
                     <div className="flex flex-col p-4 leading-normal w-full md:w-2/3">
                         <div className="flex items-center mb-4 gap-4">
-                            <Link to={"/user/" + post.creator.id}>
+                            <Link to={"/user/" + post?.creator.id}>
                                 <Avatar
                                     src={post?.creator?.profilePicture}
                                     alt={

@@ -154,9 +154,9 @@ const NewPost = () => {
 
             const { images, primaryIndex } = formState4.inputs.pictures.value;
             images.forEach((image) => {
-                formData.append("pictures", image);
+                formData.append("images", image);
             });
-            formData.append("primaryPictureIndex", primaryIndex);
+            formData.append("primaryImageIndex", primaryIndex);
 
             const address = formState2.inputs.location.value.address; // Assuming this is where the address is stored
             const addressParts = address.split(","); // Split the address by commas

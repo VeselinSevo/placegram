@@ -12,7 +12,7 @@ import Button from "../../../shared/components/ui/Button";
 export default function PostItem({ post, isOwner }) {
     const [showMenu, setShowMenu] = useState(false);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-    const postDate = new Date(post.postDate);
+    const postDate = new Date(post.createdAt);
     const isRecent = Date.now() - postDate.getTime() < 24 * 60 * 60 * 1000;
 
     const displayDate = isRecent
@@ -41,8 +41,9 @@ export default function PostItem({ post, isOwner }) {
 
     const OPTIONS = [
         { text: "Edit", onClick: handleEdit },
-        { text: "Delete", onClick: handleDelete },
         { text: "Hide", onClick: handleHide },
+        { text: "Delete", onClick: handleDelete, style: "danger" },
+        { text: "Cancel", onClick: () => setShowMenu(false) },
     ];
 
     return (
@@ -51,7 +52,7 @@ export default function PostItem({ post, isOwner }) {
                 <div>
                     <img
                         className="object-cover w-full rounded-sm md:rounded-md"
-                        src={post.image}
+                        src={post.images[0]}
                         alt={post.title}
                         style={{ height: "200px" }} // Fixed height for the image
                     />
@@ -89,10 +90,10 @@ export default function PostItem({ post, isOwner }) {
 
                         <img
                             className="ml-2 h-4 w-6"
-                            src={`https://flagcdn.com/${post.country
+                            src={`https://flagcdn.com/${post.location.country
                                 .toLowerCase()
                                 .substring(0, 2)}.svg`}
-                            alt={`${post.country} flag`}
+                            alt={`${post.location.country} flag`}
                         />
                     </p>
                     <p className="text-text dark:text-text-dark text-sm flex items-center">

@@ -9,56 +9,9 @@ import Register from "./auth/pages/Register";
 import Layout from "./layout/Layout";
 import AdminLayout from "./layout/AdminLayout";
 import { useSelector } from "react-redux";
-
-const fetchPost = async ({ params }) => {
-    // To implement post fetching by id
-    const postData = {
-        id: "1234567890",
-        creator: {
-            id: "1",
-            username: "john_doe",
-            profilePicture: "/users/profile-images/user1.jpg",
-            email: "john@example.com",
-        },
-        title: "Sunset at Grand Canyon",
-        location: {
-            latitude: 36.1069652,
-            longitude: -112.1129972,
-            address: "Grand Canyon, Arizona, USA",
-        },
-        image: "/places/thumbnail-images/place1.webp",
-        images: [
-            "/places/thumbnail-images/place1.webp",
-            "/places/thumbnail-images/place1.webp",
-            "/places/thumbnail-images/place1.webp",
-            "/places/thumbnail-images/place1.webp",
-        ],
-        description:
-            "Witnessed an amazing sunset at the Grand Canyon. The view was breathtaking, with the colors of the sky reflecting off the canyon walls.",
-        country: "USA",
-        visitDate: "2024-08-13T18:30:00Z",
-        postDate: "2024-08-14T10:00:00Z",
-        tags: [
-            { name: "Nature", iconLocation: "NatureIcon" },
-            { name: "Urban", iconLocation: "UrbanIcon" },
-            { name: "Adventure", iconLocation: "AdventureIcon" },
-        ],
-        taggedPeople: [
-            {
-                id: "2",
-                username: "jane_doe",
-                profilePicture: "/users/profile-images/user1.jpg",
-            },
-            {
-                id: "3",
-                username: "alice_smith",
-                profilePicture: "/users/profile-images/user1.jpg",
-            },
-        ],
-    };
-
-    return postData;
-};
+import axios from "axios";
+import fetchPost from "../loaders/fetchPost";
+import fetchUser from "../loaders/fetchUser";
 
 export default function App() {
     let isLoggedIn = useSelector((state) => state.auth.value.isLoggedIn);
@@ -92,7 +45,7 @@ export default function App() {
                 element: <Layout />,
                 children: [
                     { path: "/", element: <Posts /> },
-                    { path: "/user/:id", element: <User /> },
+                    { path: "/user/:id", element: <User />, loader: fetchUser },
                     {
                         path: "/post/:id",
                         element: <Post />,

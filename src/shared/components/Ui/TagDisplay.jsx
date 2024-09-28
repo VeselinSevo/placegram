@@ -7,7 +7,7 @@ const TagDisplay = ({ tags }) => {
             {tags.map((tag, index) => (
                 <div key={index} className="flex items-center ">
                     <img
-                        src={icons[tag.iconLocation]}
+                        src={icons[tag.icon]}
                         alt={tag.name}
                         className="mr-1 w-4 h-4"
                     />

@@ -43,7 +43,7 @@ const Post = () => {
                     <div className="w-full md:w-1/2 space-y-4">
                         <PostedByCard
                             user={post.creator}
-                            taggedPeople={post.taggedPeople}
+                            taggedPeople={post.taggedUsers}
                         />
                         <DescriptionCard description={post.description} />
                     </div>
