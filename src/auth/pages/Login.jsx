@@ -42,9 +42,7 @@ export default function Login() {
     );
 
     const handleLogin = (e) => {
-        console.log(123);
         e.preventDefault();
-        console.log(formState.isValid);
         if (formState.isValid) {
             const { email, password } = formState.inputs;
             // Implement login logic here using email.value and password.value

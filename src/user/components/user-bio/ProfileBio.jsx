@@ -35,6 +35,7 @@ export default function ProfileBio() {
             </div>
             {openProfilePhotoModal && (
                 <ProfilePhotoModal
+                    user={user}
                     onClose={() => setOpenProfilePhotoModal(false)}
                 ></ProfilePhotoModal>
             )}

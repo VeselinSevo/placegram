@@ -1,19 +1,22 @@
 import axios from "axios";
 
 const fetchUser = async ({ params }) => {
-    const userId = params.id; // Get the post ID from the route parameters
+    const userId = params.id; // Get the user ID from the route parameters
 
     try {
         const response = await axios.get(
             `http://localhost:3000/api/users/${userId}`
         );
         const userData = response.data.user;
-
-        console.log(userData);
-        return userData; // This will include both post and user data
+        return userData; // Return the user data if successful
     } catch (error) {
-        console.error("Error fetching user:", error);
-        throw error; // You can handle the error as needed
+        if (error.response) {
+            // Extract error message from the backend's response
+            const errorMessage =
+                error.response.data.message || "An error occurred";
+
+            throw new Error(errorMessage);
+        }
     }
 };
 

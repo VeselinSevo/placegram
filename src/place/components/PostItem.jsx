@@ -25,11 +25,8 @@ export default function PostItem({ post }) {
     }
 
     function openModal() {
-        console.log("sasaa");
         setisModalOpen(true);
     }
-
-    console.log(post);
 
     return (
         <>

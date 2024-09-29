@@ -8,12 +8,15 @@ const fetchPost = async ({ params }) => {
             `http://localhost:3000/api/posts/${postId}`
         );
         const postData = response.data.post;
-
-        console.log(postData);
         return postData; // This will include both post and user data
     } catch (error) {
-        console.error("Error fetching post:", error);
-        throw error; // You can handle the error as needed
+        if (error.response) {
+            // Extract error message from the backend's response
+            const errorMessage =
+                error.response.data.message || "An error occurred";
+
+            throw new Error(errorMessage);
+        }
     }
 };
 

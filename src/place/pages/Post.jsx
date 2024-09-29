@@ -11,10 +11,6 @@ import TagDisplay from "../../shared/components/ui/TagDisplay";
 const Post = () => {
     const post = useLoaderData(); // Ensure this is correctly fetching the post data
 
-    if (!post) {
-        return <p>Loading...</p>; // Handle loading state or error
-    }
-
     return (
         <PageWrapper>
             <div>

@@ -7,28 +7,45 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function User() {
-    const { id } = useParams(); // 'id' should match the dynamic URL parameter in your route
+    const { id } = useParams();
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
     const currentUser = useSelector((state) => state.auth.userId);
-    const [postsData, setPostsData] = useState([]); // State to store fetched posts
+    const [postsData, setPostsData] = useState([]);
+    console.log(error);
 
     useEffect(() => {
         const fetchPostByUserId = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/api/posts/user/${id}` // Use id from useParams
+                    `http://localhost:3000/api/posts/user/${id}`
                 );
                 const fetchedPosts = response.data.posts;
+
+                setPostsData(fetchedPosts);
                 console.log(fetchedPosts);
-                setPostsData(fetchedPosts); // Save the posts in state
+                setError("");
             } catch (error) {
-                console.error("Error fetching posts:", error);
+                if (error.response) {
+                    // If the backend responds with an error message, extract it
+                    const errorMessage =
+                        error.response.data.message ||
+                        "An error occurred while fetching posts.";
+                    setError(errorMessage);
+                } else {
+                    // Handle network or unexpected errors
+                    setError("An error occurred while fetching posts.");
+                }
+                setPostsData([]);
+            } finally {
+                setLoading(false);
             }
         };
 
         if (id) {
-            fetchPostByUserId(); // Call the function if id exists
+            fetchPostByUserId();
         }
-    }, [id]); // Add id as a dependency to re-fetch when the URL changes
+    }, [id]);
 
     // const isOwner = id === currentUser; // Check if the current user owns the profile
     const isOwner = true; // For now, assuming the user is the owner
@@ -37,7 +54,13 @@ export default function User() {
         <PageWrapper>
             <div className="w-full">
                 <ProfileBio />
-                <PostsDisplay isOwner={isOwner} posts={postsData} />
+
+                <PostsDisplay
+                    isOwner={isOwner}
+                    posts={postsData}
+                    loading={loading}
+                    error={error}
+                />
             </div>
         </PageWrapper>
     );

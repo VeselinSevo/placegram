@@ -9,9 +9,9 @@ import Register from "./auth/pages/Register";
 import Layout from "./layout/Layout";
 import AdminLayout from "./layout/AdminLayout";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import fetchPost from "../loaders/fetchPost";
 import fetchUser from "../loaders/fetchUser";
+import ErrorPage from "./shared/pages/ErrorPage";
 
 export default function App() {
     let isLoggedIn = useSelector((state) => state.auth.value.isLoggedIn);
@@ -25,13 +25,20 @@ export default function App() {
             {
                 path: "/",
                 element: <Layout />,
+                errorElement: <ErrorPage />,
                 children: [
                     { path: "/", element: <Posts /> },
                     { path: "/posts/new", element: <NewPost /> },
-                    { path: "/user/:id", element: <User /> },
+                    {
+                        path: "/user/:id",
+                        element: <User />,
+                        loader: fetchUser,
+                        errorElement: <ErrorPage />,
+                    },
                     {
                         path: "/post/:id",
                         element: <Post />,
+                        errorElement: <ErrorPage />,
                         loader: fetchPost,
                     },
                     { path: "*", element: <Posts /> },
@@ -43,12 +50,19 @@ export default function App() {
             {
                 path: "/",
                 element: <Layout />,
+                errorElement: <ErrorPage />,
                 children: [
                     { path: "/", element: <Posts /> },
-                    { path: "/user/:id", element: <User />, loader: fetchUser },
+                    {
+                        path: "/user/:id",
+                        element: <User />,
+                        loader: fetchUser,
+                        errorElement: <ErrorPage />,
+                    },
                     {
                         path: "/post/:id",
                         element: <Post />,
+                        errorElement: <ErrorPage />,
                         loader: fetchPost,
                     },
                     { path: "/login", element: <Login /> },
@@ -64,6 +78,7 @@ export default function App() {
             {
                 path: "/admin",
                 element: <AdminLayout />,
+                errorElement: <ErrorPage />,
             },
         ];
     }

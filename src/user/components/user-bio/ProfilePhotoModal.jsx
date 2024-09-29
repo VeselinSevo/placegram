@@ -21,7 +21,7 @@ export default function ProfilePhotoModal(props) {
         >
             <div className="flex flex-col justify-center items-center gap-5">
                 <Avatar
-                    src={"/places/thumbnail-images/place1.webp"}
+                    src={props.user.profilePicture}
                     alt={"User this and that"}
                     customClasses="w-20 h-20 md:w-32 md:h-32"
                 />

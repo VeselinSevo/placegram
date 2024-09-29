@@ -43,10 +43,6 @@ export default function Register() {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        console.log("-----------------------------------");
-        console.log(formState.inputs);
-        console.log(formState.isValid);
-        console.log("-----------------------------------");
         if (formState.isValid) {
             console.log(
                 "Registration successful! Form data:",
