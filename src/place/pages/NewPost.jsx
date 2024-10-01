@@ -5,7 +5,6 @@ import {
     VALIDATOR_MINLENGTH,
 } from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/useForm";
-import { useHttpClient } from "../../shared/hooks/useHttpClient";
 import { useSelector } from "react-redux";
 import Input from "../../shared/components/ui/Input";
 import Button from "../../shared/components/ui/Button";
@@ -19,15 +18,23 @@ import MapPicker from "../../shared/components/ui/MapPicker";
 import CornerPopup from "../../shared/components/ui/CornerPopup";
 import StepIndicator from "../components/post-creation/StepIndicator";
 import TagSelector from "../components/post-creation/TagSelector";
+import useLoading from "../../shared/hooks/useLoading";
+import axiosInstance from "../../../axiosInstance";
 
 const NewPost = () => {
+    // Use the useLoading hook with the login logic
+    const [createNewPostRequest, isLoading] = useLoading(async (formData) => {
+        const response = await axiosInstance.post("/posts", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        return response;
+    });
     const [currentStep, setCurrentStep] = useState(1);
+    const [popup, setPopup] = useState({});
     const progress = ((currentStep - 1) / 3) * 100; // Update progress calculation
     const [showValidationErrors, setShowValidationErrors] = useState(false);
-    const [showErrorMessage, setShowErrorMessage] = useState(false);
-    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-    const auth = useSelector((state) => state.auth.value);
-    const { isLoading, error, sendRequest } = useHttpClient();
     const navigate = useNavigate();
 
     const [formState1, inputHandler1] = useForm(
@@ -65,24 +72,6 @@ const NewPost = () => {
         },
         false
     );
-
-    useEffect(() => {
-        if (showErrorMessage) {
-            const timer = setTimeout(() => {
-                setShowErrorMessage(false);
-            }, 1800);
-            return () => clearTimeout(timer);
-        }
-    }, [showErrorMessage]);
-
-    useEffect(() => {
-        if (showSuccessPopup) {
-            const timer = setTimeout(() => {
-                navigate(`/profile/${auth.userId}`);
-            }, 3000);
-            return () => clearTimeout(timer);
-        }
-    }, [showSuccessPopup, navigate, auth.userId]);
 
     const isStepValid = (step) => {
         switch (step) {
@@ -140,53 +129,68 @@ const NewPost = () => {
         event.preventDefault();
         try {
             const formData = new FormData();
+
+            // 1. Add title and description
             formData.append("title", formState1.inputs.title.value);
             formData.append("description", formState1.inputs.description.value);
-            formData.append(
-                "tagPeople",
-                JSON.stringify(formState2.inputs.tagPeople.value) // Updated to tagPeople
-            );
-            formData.append(
-                "tags",
-                JSON.stringify(formState3.inputs.generalTags.value)
-            );
-            // formData.append("creator", auth.userId);
 
-            const { images, primaryIndex } = formState4.inputs.pictures.value;
-            images.forEach((image) => {
-                formData.append("images", image);
-            });
-            formData.append("primaryImageIndex", primaryIndex);
+            // 2. Add visitDate (Assuming you have a field for this in the form)
+            const visitDate = new Date(); // Use the date input value from your form
+            formData.append("visitDate", visitDate.toISOString()); // Convert date to ISO string
 
-            const address = formState2.inputs.location.value.address; // Assuming this is where the address is stored
-            const addressParts = address.split(","); // Split the address by commas
-            const country = addressParts[addressParts.length - 1].trim(); // Get the last part and trim whitespace
+            // 3. Add tagged users (Array of UUIDs)
+            const taggedUsers = formState2.inputs.tagPeople.value.map(
+                (user) => user.id
+            );
+            formData.append("taggedUsers", JSON.stringify(taggedUsers));
+
+            // 4. Add general tags (Array of tag IDs)
+            const generalTags = formState3.inputs.generalTags.value; // Already an array of UUIDs
+
+            formData.append("tags", JSON.stringify(generalTags));
+
+            // 6. Add location (including country extraction logic)
+            const address = formState2.inputs.location.value.address;
+            const addressParts = address.split(",");
+            const country = addressParts[addressParts.length - 1].trim();
 
             const location = {
                 ...formState2.inputs.location.value,
                 country: country,
             };
-            console.log(location);
+            formData.append("location", JSON.stringify(location)); // Location as JSON
 
-            formData.append("location", JSON.stringify(location));
-            // Log formData contents
+            // 7. Add images
+            const { images, primaryIndex } = formState4.inputs.pictures.value;
+            images.forEach((image) => {
+                formData.append("images", image); // Assuming `image` is a File object
+            });
+            // formData.append("primaryImageIndex", primaryIndex); // Optionally, if you need to send this
+
+            // Log the form data for debugging
             const formDataObject = {};
             formData.forEach((value, key) => {
                 formDataObject[key] = value;
             });
-            console.log("Form Data:", formDataObject); // Log the form data as an object
+            console.log("Form Data:", formDataObject); // Debugging the formData
 
-            await sendRequest(
-                "http://localhost:5000/api/posts",
-                "POST",
-                formData,
-                {
-                    Authorization: "Bearer " + auth.token,
-                }
-            );
-            setShowSuccessPopup(true);
-        } catch (err) {
-            setShowErrorMessage(true);
+            // Submit the form data to the backend
+            await createNewPostRequest(formData);
+
+            // Display success popup and navigate after a short delay
+            setPopup({
+                type: "success",
+                message: "Post successfully created!",
+            });
+            setTimeout(() => {
+                navigate("/");
+            }, 2000);
+        } catch (error) {
+            // Handle error and display a popup
+            setPopup({
+                type: "error",
+                message: error.response?.data.message || "An error occurred",
+            });
         }
     };
 
@@ -289,6 +293,10 @@ const NewPost = () => {
                                         />
                                         <UserTagInput
                                             onTagsChange={handleTagsChange}
+                                            taggedUsers={
+                                                formState2.inputs.tagPeople
+                                                    .value
+                                            }
                                         />
                                         {showValidationErrors &&
                                             !formState2.inputs.tagPeople
@@ -422,14 +430,10 @@ const NewPost = () => {
                                         <Button
                                             type="submit"
                                             customClasses="mt-2"
-                                            disabled={
-                                                !isStepValid(currentStep) ||
-                                                isLoading
-                                            }
+                                            disabled={!isStepValid(currentStep)}
+                                            loading={isLoading}
                                         >
-                                            {isLoading
-                                                ? "Adding..."
-                                                : "Add Post"}
+                                            Crete Post
                                         </Button>
                                     )}
                                 </div>
@@ -443,23 +447,11 @@ const NewPost = () => {
                         </div>
                     </Card>
 
-                    {showSuccessPopup && (
+                    {popup.message && (
                         <CornerPopup
-                            message="Your post has been successfully added. Redirecting to your profile..."
-                            type="success"
-                            duration={3000}
-                            onClose={() => setShowSuccessPopup(false)}
-                        />
-                    )}
-
-                    {showErrorMessage && (
-                        <CornerPopup
-                            message={
-                                error || "An error occurred. Please try again."
-                            }
-                            type="error"
-                            duration={3000}
-                            onClose={() => setShowErrorMessage(false)}
+                            message={popup.message}
+                            type={popup.type}
+                            onClose={() => setPopup({})}
                         />
                     )}
                 </div>

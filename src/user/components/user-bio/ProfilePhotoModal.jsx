@@ -8,7 +8,6 @@ import {
 import ProfilePhotoOptions from "./ProfilePhotoOptions";
 
 export default function ProfilePhotoModal(props) {
-    console.log(props);
     useEffect(() => {
         disableBodyScroll();
         return () => enableBodyScroll();

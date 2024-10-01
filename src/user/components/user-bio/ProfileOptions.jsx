@@ -3,12 +3,15 @@ import { faEllipsis, faGear } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Button from "../../../shared/components/ui/Button";
 import OptionsModal from "../../../shared/components/ui/OptionsModal";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfileOptions(props) {
     const [openProfileOptions, setOpenProfileOptions] = useState(false);
     const [openUserOptions, setOpenUserOptions] = useState(false);
-
-    const isOwner = false;
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const PROFILE_OPTIONS = [
         { text: "Share", onClick: () => console.log("Share clicked") },
@@ -32,7 +35,7 @@ export default function ProfileOptions(props) {
         },
         {
             text: "Log out",
-            onClick: () => console.log("Log out clicked"),
+            onClick: () => logOut(),
             style: "danger",
         },
         {
@@ -40,6 +43,13 @@ export default function ProfileOptions(props) {
             onClick: () => setOpenUserOptions(false),
         },
     ];
+
+    function logOut() {
+        console.log("Removing token from inside of logout useroptions 2");
+        localStorage.removeItem("token");
+        dispatch(logout());
+        navigate("/login");
+    }
 
     return (
         <div className="mb-3 md:mb-4 flex items-center gap-x-5 text-text dark:text-text-dark">
@@ -49,7 +59,7 @@ export default function ProfileOptions(props) {
                 </span>
             </div>
             <div className="flex gap-x-3 items-center align-middle">
-                {!isOwner && (
+                {!props.isOwner && (
                     <div>
                         <Button size="sm" variant="primary">
                             Follow
@@ -62,7 +72,7 @@ export default function ProfileOptions(props) {
                     </div>
                 )}
 
-                {isOwner && (
+                {props.isOwner && (
                     <FontAwesomeIcon
                         icon={faGear}
                         onClick={() => setOpenUserOptions(true)}

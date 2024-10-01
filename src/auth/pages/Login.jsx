@@ -1,32 +1,26 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import useForm from "../../shared/hooks/useForm";
+import PageWrapper from "../../shared/components/ui/PageWrapper";
+import googleLogo from "../../assets/icons/auth-icons/google-logo.svg";
+import Button from "../../shared/components/ui/Button";
+import Card from "../../shared/components/ui/Card";
+import Input from "../../shared/components/ui/Input";
+import Label from "../../shared/components/ui/Label";
+import { login } from "../authSlice"; // Adjust the import path accordingly
+import axios from "axios";
 import {
     VALIDATOR_REQUIRE,
     VALIDATOR_EMAIL,
-    VALIDATOR_MINLENGTH,
 } from "../../shared/util/validators";
-import PageWrapper from "../../shared/components/Ui/PageWrapper";
-import Button from "../../shared/components/Ui/Button";
-import Card from "../../shared/components/Ui/Card";
-import googleLogo from "../../assets/icons/auth-icons/google-logo.svg";
-import Input from "../../shared/components/Ui/Input"; // Import custom Input
-import Label from "../../shared/components/Ui/Label"; // Import custom Label
-import { useSelector, useDispatch } from "react-redux";
-import { login } from "../authSlice";
+import CornerPopup from "../../shared/components/ui/CornerPopup";
 import { useNavigate } from "react-router-dom";
+import useLoading from "../../shared/hooks/useLoading";
+import { useDispatch } from "react-redux";
 
 export default function Login() {
-    const navigate = useNavigate();
-    const isLoggedIn = useSelector((state) => state.auth.value.isLoggedIn);
-    const [showValidationErrors, setShowValidationErrors] = useState(false);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (isLoggedIn) {
-            navigate("/");
-        }
-    }, [isLoggedIn, navigate]);
-
+    const navigate = useNavigate();
+    const [popup, setPopup] = useState(null);
     const [formState, inputHandler] = useForm(
         {
             email: {
@@ -41,17 +35,57 @@ export default function Login() {
         false
     );
 
-    const handleLogin = (e) => {
+    const [showValidationErrors, setShowValidationErrors] = useState(false);
+
+    // Use the useLoading hook with the login logic
+    const [loginRequest, isLoading] = useLoading(async (formData) => {
+        const response = await axios.post(
+            "http://localhost:3000/api/users/signin", // Change to your login API endpoint
+            formData
+        );
+        return response;
+    });
+
+    const handleLogin = async (e) => {
         e.preventDefault();
+
         if (formState.isValid) {
-            const { email, password } = formState.inputs;
-            // Implement login logic here using email.value and password.value
-            console.log("Logging in with:", email.value, password.value);
-            dispatch(login({ email: email.value, password: password.value }));
-            navigate("/");
+            try {
+                const formData = {
+                    email: formState.inputs.email.value,
+                    password: formState.inputs.password.value,
+                };
+
+                // Call the loginRequest function
+                const response = await loginRequest(formData);
+                const { token, user } = response.data; // Assuming the response contains token and user data
+
+                // Store token in local storage
+                localStorage.setItem("token", token);
+                localStorage.setItem("user", JSON.stringify(user));
+
+                // Dispatch login action to Redux
+
+                // Show success popup and navigate to dashboard or home
+                setPopup({
+                    type: "success",
+                    message: "Login successful",
+                });
+                setTimeout(() => {
+                    dispatch(login(user));
+                    navigate("/");
+                }, 1000);
+            } catch (error) {
+                // Handle error response
+                console.log("Login error:", error.response);
+                const errorMsg = error.response?.data.message || "Login failed";
+                setPopup({ type: "error", message: errorMsg });
+            }
         } else {
-            // Handle form validation errors
-            console.log("Form is invalid");
+            console.log(
+                "Login failed. Please check your inputs.",
+                formState.inputs
+            );
         }
     };
 
@@ -73,15 +107,12 @@ export default function Login() {
                                 name="email"
                                 type="email"
                                 autoComplete="email"
-                                required
-                                errorText="Please enter valid email address"
-                                validators={[
-                                    VALIDATOR_REQUIRE(),
-                                    VALIDATOR_EMAIL(),
-                                ]}
                                 value={formState.inputs.email.value}
+                                required
                                 onInput={inputHandler}
-                                showError={showValidationErrors} // Show error if validation fails
+                                validators={[VALIDATOR_EMAIL()]}
+                                errorText="Please enter a valid email address"
+                                showError={showValidationErrors}
                             />
                         </div>
                         <div className="mb-4">
@@ -91,37 +122,24 @@ export default function Login() {
                                 name="password"
                                 type="password"
                                 autoComplete="current-password"
-                                required
-                                errorText="Please enter valid password"
-                                validators={[
-                                    VALIDATOR_REQUIRE(),
-                                    VALIDATOR_MINLENGTH(8),
-                                ]}
                                 value={formState.inputs.password.value}
+                                required
                                 onInput={inputHandler}
-                                showError={showValidationErrors} // Show error if validation fails
+                                validators={[VALIDATOR_REQUIRE()]}
+                                errorText="Please enter your password"
+                                showError={showValidationErrors}
                             />
-                        </div>
-                        <div className="flex items-center justify-between mb-3 md:mb-4">
-                            <div className="text-sm">
-                                <a
-                                    href="#"
-                                    className="font-medium text-primary"
-                                >
-                                    Forgot your password?
-                                </a>
-                            </div>
                         </div>
                         <div>
                             <Button
                                 type="submit"
                                 variant="primary"
                                 size="md"
-                                customClasses="w-full mt-2"
-                                // disabled={!formState.isValid}
-                                onButtonClick={() => {
-                                    setShowValidationErrors(true);
-                                }}
+                                customClasses="w-full mt-3"
+                                onButtonClick={() =>
+                                    setShowValidationErrors(true)
+                                }
+                                loading={isLoading}
                             >
                                 Sign in
                             </Button>
@@ -158,8 +176,17 @@ export default function Login() {
                             </Card>
                         </div>
                     </div>
+                    {popup && (
+                        <CornerPopup
+                            message={popup.message}
+                            type={popup.type}
+                            onClose={() => setPopup(null)}
+                        />
+                    )}
                 </div>
             </Card>
         </PageWrapper>
     );
 }
+
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwMmFjN2IyZS1hMTQyLTQ3NDMtOGQ5NC1jMjdjMjEwZjUzZjQiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNzcyOTUyMiwiZXhwIjoxNzI3NzMzMTIyfQ.bVxwafAfy-x_kXAqiJPQDG4rWa52HPnstFqNwMlrxIM

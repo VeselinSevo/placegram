@@ -8,9 +8,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useLoaderData } from "react-router-dom";
 
-export default function ProfileBio() {
-    const user = useLoaderData(); // Ensure this is correctly fetching the post data
+export default function ProfileBio({ isOwner }) {
+    const user = useLoaderData();
     const [openProfilePhotoModal, setOpenProfilePhotoModal] = useState(false);
+    console.log(user);
+    console.log(user.profilePicture);
     return (
         <div className="flex items-center gap-x-5 md:gap-x-10 pb-3 md:pb-6 px-0 md:px-4">
             <div
@@ -29,7 +31,7 @@ export default function ProfileBio() {
                 />
             </div>
             <div>
-                <ProfileOptions user={user} />
+                <ProfileOptions user={user} isOwner={isOwner} />
                 <Stats user={user} />
                 <Bio user={user} />
             </div>

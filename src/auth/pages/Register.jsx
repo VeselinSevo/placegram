@@ -6,13 +6,19 @@ import Card from "../../shared/components/ui/Card";
 import googleLogo from "../../assets/icons/auth-icons/google-logo.svg";
 import Input from "../../shared/components/ui/Input";
 import Label from "../../shared/components/ui/Label";
+import axios from "axios";
 import {
     VALIDATOR_REQUIRE,
     VALIDATOR_EMAIL,
     VALIDATOR_MINLENGTH,
 } from "../../shared/util/validators";
+import CornerPopup from "../../shared/components/ui/CornerPopup";
+import { useNavigate } from "react-router-dom";
+import useLoading from "../../shared/hooks/useLoading";
 
 export default function Register() {
+    const navigate = useNavigate();
+    const [popup, setPopup] = useState(null);
     const [formState, inputHandler] = useForm(
         {
             fullname: {
@@ -41,13 +47,50 @@ export default function Register() {
 
     const [showValidationErrors, setShowValidationErrors] = useState(false);
 
-    const handleRegister = (e) => {
+    // Use the useLoading hook with the registration logic
+    const [registerRequest, isLoading] = useLoading(async (formData) => {
+        const response = await axios.post(
+            "http://localhost:3000/api/users/signup",
+            formData,
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }
+        );
+        return response;
+    });
+
+    const handleRegister = async (e) => {
         e.preventDefault();
+
         if (formState.isValid) {
-            console.log(
-                "Registration successful! Form data:",
-                formState.inputs
-            );
+            try {
+                // Create FormData object
+                const formData = new FormData();
+                formData.append("fullName", formState.inputs.fullname.value);
+                formData.append("username", formState.inputs.username.value);
+                formData.append("email", formState.inputs.email.value);
+                formData.append("password", formState.inputs.password.value);
+                formData.append("dob", formState.inputs.dob.value);
+
+                // Call the registerRequest function
+                await registerRequest(formData);
+
+                // Show success popup and navigate to login
+                setPopup({
+                    type: "success",
+                    message: "Registration successful",
+                });
+                setTimeout(() => {
+                    navigate("/login");
+                }, 2000);
+            } catch (error) {
+                // Handle error response
+                const errorMsg =
+                    error.response?.data.message || "Registration failed";
+                setPopup({ type: "error", message: errorMsg });
+            }
         } else {
             console.log(
                 "Registration failed. Please check your inputs.",
@@ -150,6 +193,7 @@ export default function Register() {
                                 onButtonClick={() =>
                                     setShowValidationErrors(true)
                                 }
+                                loading={isLoading}
                             >
                                 Sign up
                             </Button>
@@ -188,6 +232,13 @@ export default function Register() {
                     </div>
                 </div>
             </Card>
+            {popup && (
+                <CornerPopup
+                    message={popup.message}
+                    type={popup.type}
+                    onClose={() => setPopup(null)}
+                />
+            )}
         </PageWrapper>
     );
 }

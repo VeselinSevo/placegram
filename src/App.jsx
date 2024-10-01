@@ -12,11 +12,42 @@ import { useSelector } from "react-redux";
 import fetchPost from "../loaders/fetchPost";
 import fetchUser from "../loaders/fetchUser";
 import ErrorPage from "./shared/pages/ErrorPage";
+import { useEffect } from "react";
+import axiosInstance from "../axiosInstance";
+import { useDispatch } from "react-redux";
+import { login } from "./auth/authSlice";
 
 export default function App() {
-    let isLoggedIn = useSelector((state) => state.auth.value.isLoggedIn);
-    // isLoggedIn = true;
+    const dispatch = useDispatch();
+    let isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     let isAdmin = false;
+
+    useEffect(() => {
+        // Check if token exists in localStorage
+        const token = localStorage.getItem("token");
+
+        console.log(token);
+
+        if (token) {
+            // axiosInstance will automatically attach the token via the interceptor
+            axiosInstance
+                .get("/auth/me") // Make API call using axiosInstance
+                .then((response) => {
+                    const user = response.data;
+                    dispatch(login(user)); // Set user in state
+                    localStorage.setItem("user", JSON.stringify(user)); // Optionally update user info
+                })
+                .catch((error) => {
+                    console.log("usli");
+                    console.error("Token is invalid or expired:", error);
+                    // If token is invalid or expired, remove it from localStorage
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user");
+                    // Optionally, you can redirect to login here
+                    // window.location.href = "/login";
+                });
+        }
+    }, []);
 
     let routes = [];
 

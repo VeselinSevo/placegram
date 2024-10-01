@@ -10,6 +10,7 @@ export default function PlacesListView(props) {
                         post={post}
                         isOwner={props.isOwner}
                         key={post.id}
+                        onPostDelete={props.handlePostDeleted}
                     />
                 ))
             ) : (
